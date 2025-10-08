@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Console appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Reduce FreeMarker debug logging -->
+    <logger name="freemarker.cache" level="WARN"/>
+    <logger name="freemarker" level="WARN"/>
+    
+    <!-- Reduce ExtentReports debug logging -->
+    <logger name="com.aventstack.extentreports" level="WARN"/>
+    
+    <!-- Keep important test logging -->
+    <logger name="tests" level="INFO"/>
+    <logger name="base" level="INFO"/>
+    <logger name="utils" level="INFO"/>
+    
+    <!-- Root logger -->
+    <root level="WARN">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Microservices API Test Suite" parallel="tests" thread-count="3">
+    <listeners>
+        <listener class-name="utils.TestListener"/>
+        <listener class-name="utils.EnhancedTestListener"/>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+
+    <!-- OPC UA Connection Service Tests -->
+    <test name="OPC UA Connection Service Tests" preserve-order="true">
+        <classes>
+            <class name="tests.OpUaConnectionServiceTest"/>
+        </classes>
+    </test>
+
+    <!-- Read Data Service Tests -->
+    <test name="Read Data Service Tests" preserve-order="true">
+        <classes>
+            <class name="tests.ReadDataServiceTest"/>
+        </classes>
+    </test>
+
+    <!-- Write Data Service Tests -->
+    <test name="Write Data Service Tests" preserve-order="true">
+        <classes>
+            <class name="tests.WriteDataServiceTest"/>
+        </classes>
+    </test>
+
+    <!-- Kafka Service Tests -->
+    <test name="Kafka Service Tests" preserve-order="true">
+        <classes>
+            <class name="tests.KafkaServiceTest"/>
+        </classes>
+    </test>
+
+    <!-- Integration Tests -->
+    <test name="Integration Tests" preserve-order="true">
+        <classes>
+            <class name="tests.IntegrationTest"/>
+        </classes>
+        
+    </test>
+
+    <!-- Legacy API Tests (Mock Server) -->
+    <test name="Legacy API Tests (Mock Server)" preserve-order="true">
+        <classes>
+            <class name="tests.ApiTestExecutor"/>
+        </classes>
+    </test>
+</suite>
+
