@@ -130,7 +130,7 @@ pipeline {
         
         stage('Test Execution') {
             when {
-                !params.SKIP_TESTS
+                expression { !params.SKIP_TESTS }
             }
             steps {
                 script {
@@ -164,7 +164,7 @@ pipeline {
         
         stage('Test Reports') {
             when {
-                !params.SKIP_TESTS
+                expression { !params.SKIP_TESTS }
             }
             steps {
                 script {
