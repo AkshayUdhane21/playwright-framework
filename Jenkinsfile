@@ -67,7 +67,9 @@ pipeline {
                 echo "Parallel Threads: ${PARALLEL_THREADS}"
                 
                 // Create necessary directories
-                sh 'mkdir -p allure-results test-output reports'
+                bat 'if not exist allure-results mkdir allure-results'
+                bat 'if not exist test-output mkdir test-output'
+                bat 'if not exist reports mkdir reports'
             }
         }
         
@@ -81,17 +83,17 @@ pipeline {
             steps {
                 script {
                     // Update configuration based on environment
-                    sh """
-                        if [ "${TEST_ENV}" = "staging" ]; then
-                            sed -i 's|api.base.url=http://localhost:8081|api.base.url=http://staging-api:8081|g' config.properties
-                        elif [ "${TEST_ENV}" = "production" ]; then
-                            sed -i 's|api.base.url=http://localhost:8081|api.base.url=http://prod-api:8081|g' config.properties
-                        fi
+                    bat """
+                        if "${TEST_ENV}"=="staging" (
+                            powershell -Command "(Get-Content config.properties) -replace 'api.base.url=http://localhost:8081', 'api.base.url=http://staging-api:8081' | Set-Content config.properties"
+                        ) else if "${TEST_ENV}"=="production" (
+                            powershell -Command "(Get-Content config.properties) -replace 'api.base.url=http://localhost:8081', 'api.base.url=http://prod-api:8081' | Set-Content config.properties"
+                        )
                         
-                        # Update browser and headless settings
-                        echo "browser=${BROWSER}" >> config.properties
-                        echo "headless=${HEADLESS}" >> config.properties
-                        echo "parallel.threads=${PARALLEL_THREADS}" >> config.properties
+                        REM Update browser and headless settings
+                        echo browser=${BROWSER} >> config.properties
+                        echo headless=${HEADLESS} >> config.properties
+                        echo parallel.threads=${PARALLEL_THREADS} >> config.properties
                     """
                 }
             }
@@ -101,15 +103,15 @@ pipeline {
             steps {
                 script {
                     // Install Playwright browsers
-                    sh 'mvn dependency:resolve'
-                    sh 'mvn exec:java -Dexec.mainClass="com.microsoft.playwright.CLI" -Dexec.args="install"'
+                    bat 'mvn dependency:resolve'
+                    bat 'mvn exec:java -Dexec.mainClass="com.microsoft.playwright.CLI" -Dexec.args="install"'
                 }
             }
         }
         
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                bat 'mvn clean compile'
             }
         }
         
@@ -117,12 +119,12 @@ pipeline {
             parallel {
                 stage('Lint Check') {
                     steps {
-                        sh 'mvn checkstyle:check || true'
+                        bat 'mvn checkstyle:check || echo Checkstyle check completed'
                     }
                 }
                 stage('Security Scan') {
                     steps {
-                        sh 'mvn org.owasp:dependency-check-maven:check || true'
+                        bat 'mvn org.owasp:dependency-check-maven:check || echo Security scan completed'
                     }
                 }
             }
@@ -137,16 +139,16 @@ pipeline {
                     try {
                         // Start services if needed
                         if (fileExists('docker-compose.yml')) {
-                            sh 'docker-compose up -d --build'
+                            bat 'docker-compose up -d --build'
                             sleep(time: 30, unit: 'SECONDS')
                         }
                         
                         // Run tests
-                        sh """
-                            mvn test -Dtest.parallel.execution=true \
-                                     -Dtest.thread.count=${PARALLEL_THREADS} \
-                                     -Dbrowser=${BROWSER} \
-                                     -Dheadless=${HEADLESS} \
+                        bat """
+                            mvn test -Dtest.parallel.execution=true ^
+                                     -Dtest.thread.count=${PARALLEL_THREADS} ^
+                                     -Dbrowser=${BROWSER} ^
+                                     -Dheadless=${HEADLESS} ^
                                      -Dtest.env=${TEST_ENV}
                         """
                     } catch (Exception e) {
@@ -155,7 +157,7 @@ pipeline {
                     } finally {
                         // Stop services
                         if (fileExists('docker-compose.yml')) {
-                            sh 'docker-compose down || true'
+                            bat 'docker-compose down || echo Docker services stopped'
                         }
                     }
                 }
@@ -170,7 +172,7 @@ pipeline {
                 script {
                     // Generate Allure Report
                     if (fileExists('allure-results')) {
-                        sh 'mvn allure:report || true'
+                        bat 'mvn allure:report || echo Allure report generation completed'
                     }
                     
                     // Archive test results
@@ -183,7 +185,7 @@ pipeline {
         
         stage('Package') {
             steps {
-                sh 'mvn package -DskipTests'
+                bat 'mvn package -DskipTests'
                 archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
             }
         }
@@ -213,8 +215,8 @@ pipeline {
         always {
             script {
                 // Clean up
-                sh 'docker-compose down || true'
-                sh 'docker system prune -f || true'
+                bat 'docker-compose down || echo Docker services stopped'
+                bat 'docker system prune -f || echo Docker cleanup completed'
             }
             
             // Publish test results
