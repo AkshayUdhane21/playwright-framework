@@ -23,7 +23,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo "Running Playwright tests..."
-                bat 'npx playwright test'
+                bat 'mvn test'
             }
         }
     }
