@@ -2,11 +2,6 @@ pipeline {
     agent any
     
     environment {
-        // Maven Configuration
-        MAVEN_HOME = 'apache-maven-3.9.6'
-        PATH = "${MAVEN_HOME}\\bin;${env.PATH}"
-        MAVEN_CMD = "${MAVEN_HOME}\\bin\\mvn.cmd"
-        
         // Test Configuration
         TEST_ENV = "${params.TEST_ENV ?: 'local'}"
         BROWSER = "${params.BROWSER ?: 'chromium'}"
@@ -68,7 +63,7 @@ pipeline {
                 echo "Parallel Threads: ${PARALLEL_THREADS}"
                 
                 // Verify Maven is available
-                bat '${MAVEN_CMD} --version'
+                bat 'apache-maven-3.9.6\\bin\\mvn.cmd --version'
                 
                 // Create necessary directories
                 bat 'if not exist allure-results mkdir allure-results'
@@ -107,15 +102,15 @@ pipeline {
             steps {
                 script {
                     // Install Playwright browsers
-                    bat '${MAVEN_CMD} dependency:resolve'
-                    bat '${MAVEN_CMD} exec:java -Dexec.mainClass="com.microsoft.playwright.CLI" -Dexec.args="install"'
+                    bat 'apache-maven-3.9.6\\bin\\mvn.cmd dependency:resolve'
+                    bat 'apache-maven-3.9.6\\bin\\mvn.cmd exec:java -Dexec.mainClass="com.microsoft.playwright.CLI" -Dexec.args="install"'
                 }
             }
         }
         
         stage('Build') {
             steps {
-                bat '${MAVEN_CMD} clean compile'
+                bat 'apache-maven-3.9.6\\bin\\mvn.cmd clean compile'
             }
         }
         
@@ -123,12 +118,12 @@ pipeline {
             parallel {
                 stage('Lint Check') {
                     steps {
-                        bat '${MAVEN_CMD} checkstyle:check || echo Checkstyle check completed'
+                        bat 'apache-maven-3.9.6\\bin\\mvn.cmd checkstyle:check || echo Checkstyle check completed'
                     }
                 }
                 stage('Security Scan') {
                     steps {
-                        bat '${MAVEN_CMD} org.owasp:dependency-check-maven:check || echo Security scan completed'
+                        bat 'apache-maven-3.9.6\\bin\\mvn.cmd org.owasp:dependency-check-maven:check || echo Security scan completed'
                     }
                 }
             }
@@ -149,7 +144,7 @@ pipeline {
                         
                         // Run tests
                         bat """
-                            ${MAVEN_CMD} test -Dtest.parallel.execution=true ^
+                            apache-maven-3.9.6\\bin\\mvn.cmd test -Dtest.parallel.execution=true ^
                                      -Dtest.thread.count=${PARALLEL_THREADS} ^
                                      -Dbrowser=${BROWSER} ^
                                      -Dheadless=${HEADLESS} ^
@@ -176,7 +171,7 @@ pipeline {
                 script {
                     // Generate Allure Report
                     if (fileExists('allure-results')) {
-                        bat '${MAVEN_CMD} allure:report || echo Allure report generation completed'
+                        bat 'apache-maven-3.9.6\\bin\\mvn.cmd allure:report || echo Allure report generation completed'
                     }
                     
                     // Archive test results
@@ -189,7 +184,7 @@ pipeline {
         
         stage('Package') {
             steps {
-                bat '${MAVEN_CMD} package -DskipTests'
+                bat 'apache-maven-3.9.6\\bin\\mvn.cmd package -DskipTests'
                 archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
             }
         }
