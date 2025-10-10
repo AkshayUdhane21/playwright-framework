@@ -2,14 +2,13 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven3'   // ✅ Matches the name in your Jenkins config
+        maven 'Maven3'
     }
 
     environment {
         JAVA_HOME = tool 'JDK11'
         MAVEN_OPTS = '-Xmx1024m -XX:MaxPermSize=256m'
         TEST_MODE = 'mock'
-        // Git configuration for better connectivity
         GIT_SSL_NO_VERIFY = 'true'
         GIT_HTTP_LOW_SPEED_LIMIT = '1000'
         GIT_HTTP_LOW_SPEED_TIME = '300'
@@ -109,25 +108,23 @@ pipeline {
             cleanWs()
         }
         success {
-            echo "✅ All tests passed successfully!"
-            // Send success notification
+            echo "All tests passed successfully!"
             emailext (
-                subject: "✅ Build Success: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
+                subject: "Build Success: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
                 body: "Build ${env.BUILD_NUMBER} of ${env.JOB_NAME} completed successfully.\n\nTest Results: ${env.BUILD_URL}testReport/",
                 to: "${env.CHANGE_AUTHOR_EMAIL}"
             )
         }
         failure {
-            echo "❌ Some tests failed. Check the test reports for details."
-            // Send failure notification
+            echo "Some tests failed. Check the test reports for details."
             emailext (
-                subject: "❌ Build Failed: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
+                subject: "Build Failed: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
                 body: "Build ${env.BUILD_NUMBER} of ${env.JOB_NAME} failed.\n\nCheck the console output: ${env.BUILD_URL}console\nTest Results: ${env.BUILD_URL}testReport/",
                 to: "${env.CHANGE_AUTHOR_EMAIL}"
             )
         }
         unstable {
-            echo "⚠️ Build is unstable. Some tests failed but build continued."
+            echo "Build is unstable. Some tests failed but build continued."
         }
     }
 }
