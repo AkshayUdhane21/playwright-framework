@@ -8,7 +8,6 @@ pipeline {
     environment {
         JAVA_HOME = tool 'JDK11'
         MAVEN_OPTS = '-Xmx1024m -XX:MaxPermSize=256m'
-        TEST_MODE = 'mock'
     }
 
     stages {
@@ -42,11 +41,6 @@ pipeline {
                 echo "Running tests with Mock Services..."
                 bat 'mvn test -Dtest.mode=mock -Dmock.services.enabled=true -Dtest.parallel.enabled=true -Dtest.parallel.threads=3'
             }
-            post {
-                always {
-                    echo "Test execution completed"
-                }
-            }
         }
 
         stage('Test with Real Services') {
@@ -57,53 +51,19 @@ pipeline {
                 echo "Running tests with Real Services..."
                 bat 'mvn test -Dtest.mode=real -Dreal.services.enabled=true -Dtest.parallel.enabled=true -Dtest.parallel.threads=2'
             }
-            post {
-                always {
-                    echo "Real service tests completed"
-                }
-            }
         }
     }
 
     post {
         always {
-            script {
-                echo "Generating test reports..."
-                try {
-                    publishHTML([
-                        allowMissing: true,
-                        alwaysLinkToLastBuild: true,
-                        keepAll: true,
-                        reportDir: 'test-output',
-                        reportFiles: 'Enhanced_Test_Report_*.html',
-                        reportName: 'Test Report'
-                    ])
-                } catch (Exception e) {
-                    echo "HTML report generation failed: ${e.getMessage()}"
-                }
-                
-                try {
-                    archiveArtifacts artifacts: 'test-output/**/*', allowEmptyArchive: true
-                    archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: true
-                } catch (Exception e) {
-                    echo "Artifact archiving failed: ${e.getMessage()}"
-                }
-                
-                try {
-                    publishTestResults testResultsPattern: 'test-output/testng-results.xml'
-                } catch (Exception e) {
-                    echo "TestNG results publishing failed: ${e.getMessage()}"
-                }
-                
-                echo "Workspace cleanup..."
-                cleanWs()
-            }
+            echo "Build completed"
+            cleanWs()
         }
         success {
             echo "All tests passed successfully!"
         }
         failure {
-            echo "Some tests failed. Check the test reports for details."
+            echo "Some tests failed. Check the console output for details."
         }
         unstable {
             echo "Build is unstable. Some tests failed but build continued."
