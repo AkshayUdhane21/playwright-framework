@@ -88,27 +88,25 @@ pipeline {
 
     post {
         always {
-            node {
-                echo "Generating test reports..."
-                publishHTML([
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'test-output',
-                    reportFiles: 'Enhanced_Test_Report_*.html',
-                    reportName: 'Test Report'
-                ])
-                
-                // Archive test results
-                archiveArtifacts artifacts: 'test-output/**/*', allowEmptyArchive: true
-                archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: true
-                
-                // Publish TestNG results
-                publishTestResults testResultsPattern: 'test-output/testng-results.xml'
-                
-                echo "Workspace cleanup..."
-                cleanWs()
-            }
+            echo "Generating test reports..."
+            publishHTML([
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'test-output',
+                reportFiles: 'Enhanced_Test_Report_*.html',
+                reportName: 'Test Report'
+            ])
+            
+            // Archive test results
+            archiveArtifacts artifacts: 'test-output/**/*', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: true
+            
+            // Publish TestNG results
+            publishTestResults testResultsPattern: 'test-output/testng-results.xml'
+            
+            echo "Workspace cleanup..."
+            cleanWs()
         }
         success {
             echo "✅ All tests passed successfully!"
