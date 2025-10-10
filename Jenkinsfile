@@ -22,8 +22,8 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo "Running Playwright tests..."
-                bat 'mvn test'
+                echo "Running Playwright tests with Mock Services..."
+                bat 'mvn test -Dtest.mode=mock -Dmock.services.enabled=true'
             }
         }
     }
@@ -32,6 +32,12 @@ pipeline {
         always {
             echo "Cleaning workspace..."
             cleanWs()
+        }
+        success {
+            echo "✅ All tests passed successfully!"
+        }
+        failure {
+            echo "❌ Some tests failed. Check the test reports for details."
         }
     }
 }
