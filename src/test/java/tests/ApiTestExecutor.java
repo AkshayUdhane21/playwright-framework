@@ -36,7 +36,11 @@ public class ApiTestExecutor extends ApiTestBase {
 
     @Test
     public void testOpcConnectionStatus() {
-        APIResponse response = request.get("/api/connection/status");
+        String url = "/opcua/api/connection/status";
+        System.out.println("Testing URL: " + url);
+        APIResponse response = request.get(url);
+        System.out.println("Response status: " + response.status());
+        System.out.println("Response body: " + response.text());
         Assert.assertEquals(response.status(), 200);
         String body = response.text();
         Assert.assertTrue(body.contains("Connected") || body.contains("Disconnected"));
@@ -44,13 +48,13 @@ public class ApiTestExecutor extends ApiTestBase {
 
     @Test
     public void testOpcInit() {
-        APIResponse response = request.get("/api/connection/init");
+        APIResponse response = request.get("/opcua/api/connection/init");
         Assert.assertEquals(response.status(), 200);
     }
 
     @Test
     public void testOpcConnect() {
-        APIResponse response = request.get("/api/connection/connect");
+        APIResponse response = request.get("/opcua/api/connection/connect");
         Assert.assertEquals(response.status(), 200);
     }
 
@@ -58,34 +62,34 @@ public class ApiTestExecutor extends ApiTestBase {
 
     @Test
     public void testBrowseTags() {
-        APIResponse response = request.get("/api/read/browse?startingNodeParam=ns=3;s=\"WMS TO PLC\"");
+        APIResponse response = request.get("/read/api/read/browse?startingNodeParam=ns=3;s=\"WMS TO PLC\"");
         Assert.assertEquals(response.status(), 200);
         System.out.println("Browse tags: " + response.text());
     }
 
     @Test
     public void testReadValue() {
-        APIResponse response = request.get("/api/read/readValue?nodeId=ns=3;s=\"PLC_To_WMS\"");
+        APIResponse response = request.get("/read/api/read/readValue?nodeId=ns=3;s=\"PLC_To_WMS\"");
         Assert.assertEquals(response.status(), 200);
         System.out.println("Read value: " + response.text());
     }
 
     @Test
     public void testSubscribeToData() {
-        APIResponse response = request.get("/api/read/subscribeToData");
+        APIResponse response = request.get("/read/api/read/subscribeToData");
         Assert.assertEquals(response.status(), 200);
     }
 
     @Test
     public void testReadNode() {
-        APIResponse response = request.get("/api/read/read-node?nodeId=ns=3;s=DataBlocksGlobal");
+        APIResponse response = request.get("/read/api/read/read-node?nodeId=ns=3;s=DataBlocksGlobal");
         Assert.assertEquals(response.status(), 200);
         System.out.println("Read node values: " + response.text());
     }
 
     @Test
     public void testReadNode2() {
-        APIResponse response = request.get("/api/read/read-node2?nodeId=MCOM");
+        APIResponse response = request.get("/read/api/read/read-node2?nodeId=MCOM");
         Assert.assertEquals(response.status(), 200);
         System.out.println("Read node2 values: " + response.text());
     }
@@ -95,7 +99,7 @@ public class ApiTestExecutor extends ApiTestBase {
     @Test
     public void testWriteNode() {
         String payload = "{ \"nodeId\": \"ns=3;s=DataBlocksGlobal\", \"value\": 123 }";
-        APIResponse response = request.post("/api/write/write-node",
+        APIResponse response = request.post("/write/api/write/write-node",
                 RequestOptions.create()
                         .setHeader("Content-Type", "application/json")
                         .setData(payload));
@@ -108,7 +112,7 @@ public class ApiTestExecutor extends ApiTestBase {
     @Test
     public void testKafkaProcessBrowseData() {
         String payload = "{ \"nodeId\": \"ns=3;s=DataBlocksGlobal\", \"browseData\": {\"tag\": \"PLC_To_WMS\"} }";
-        APIResponse response = request.post("/api/kafkaBrowse/processBrowseData",
+        APIResponse response = request.post("/kafka/api/kafkaBrowse/processBrowseData",
                 RequestOptions.create()
                         .setHeader("Content-Type", "application/json")
                         .setData(payload));
@@ -118,7 +122,7 @@ public class ApiTestExecutor extends ApiTestBase {
     @Test
     public void testKafkaHasChanged() {
         String payload = "{ \"previous\": {\"a\": 1}, \"current\": {\"a\": 2} }";
-        APIResponse response = request.post("/api/kafkaBrowse/hasChanged",
+        APIResponse response = request.post("/kafka/api/kafkaBrowse/hasChanged",
                 RequestOptions.create()
                         .setHeader("Content-Type", "application/json")
                         .setData(payload));
@@ -130,14 +134,14 @@ public class ApiTestExecutor extends ApiTestBase {
 
     @Test
     public void testConvertValue() {
-        APIResponse response = request.post("/api/opcUaValueConverter/convertValue?variant=42");
+        APIResponse response = request.post("/kafka/api/opcUaValueConverter/convertValue?variant=42");
         Assert.assertEquals(response.status(), 200);
         System.out.println("ConvertValue: " + response.text());
     }
 
     @Test
     public void testConvertDataValue() {
-        APIResponse response = request.post("/api/opcUaValueConverter/convertDataValue?originalValue=100");
+        APIResponse response = request.post("/kafka/api/opcUaValueConverter/convertDataValue?originalValue=100");
         Assert.assertEquals(response.status(), 200);
         System.out.println("ConvertDataValue: " + response.text());
     }

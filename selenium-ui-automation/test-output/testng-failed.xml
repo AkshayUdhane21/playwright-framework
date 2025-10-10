@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="1" parallel="methods" name="Failed suite [Selenium UI Automation Suite]" guice-stage="DEVELOPMENT">
+  <listeners>
+    <listener class-name="utils.TestListener"/>
+  </listeners>
+  <test thread-count="1" parallel="methods" name="Master Product Variant Tests(failed)">
+    <classes>
+      <class name="tests.MasterProductVariantTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="tearDownTest"/>
+          <include name="tearDown"/>
+          <include name="testNavigateToMasterProductVariantDetails"/>
+          <include name="setUpTest"/>
+          <include name="setUpClass"/>
+          <include name="testProductVariantCodeValidation"/>
+          <include name="testFormValidationWithInvalidData"/>
+          <include name="testSuccessfulProductVariantCreation"/>
+          <include name="setUpSuite"/>
+          <include name="testCreateButtonFunctionality"/>
+          <include name="tearDownSuite"/>
+        </methods>
+      </class> <!-- tests.MasterProductVariantTest -->
+    </classes>
+  </test> <!-- Master Product Variant Tests(failed) -->
+  <test thread-count="1" parallel="methods" name="Smoke Tests(failed)">
+    <classes>
+      <class name="tests.MasterProductVariantTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="tearDownTest"/>
+          <include name="tearDown"/>
+          <include name="testNavigateToMasterProductVariantDetails"/>
+          <include name="setUpTest"/>
+          <include name="setUpClass"/>
+          <include name="testSuccessfulProductVariantCreation"/>
+          <include name="setUpSuite"/>
+          <include name="testCreateButtonFunctionality"/>
+          <include name="tearDownSuite"/>
+        </methods>
+      </class> <!-- tests.MasterProductVariantTest -->
+    </classes>
+  </test> <!-- Smoke Tests(failed) -->
+  <test thread-count="1" parallel="methods" name="Regression Tests(failed)">
+    <classes>
+      <class name="tests.MasterProductVariantTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="tearDownTest"/>
+          <include name="tearDown"/>
+          <include name="testNavigateToMasterProductVariantDetails"/>
+          <include name="setUpTest"/>
+          <include name="setUpClass"/>
+          <include name="testProductVariantCodeValidation"/>
+          <include name="testSuccessfulProductVariantCreation"/>
+          <include name="setUpSuite"/>
+          <include name="testCreateButtonFunctionality"/>
+          <include name="tearDownSuite"/>
+        </methods>
+      </class> <!-- tests.MasterProductVariantTest -->
+    </classes>
+  </test> <!-- Regression Tests(failed) -->
+  <test thread-count="1" parallel="methods" name="Comprehensive Master Navigation Tests(failed)">
+    <classes>
+      <class name="tests.ComprehensiveMasterNavigationTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+          <include name="testMasterShiftsDetailsAutomation"/>
+          <include name="setUpSuite"/>
+          <include name="tearDownSuite"/>
+        </methods>
+      </class> <!-- tests.ComprehensiveMasterNavigationTest -->
+    </classes>
+  </test> <!-- Comprehensive Master Navigation Tests(failed) -->
+</suite> <!-- Failed suite [Selenium UI Automation Suite] -->

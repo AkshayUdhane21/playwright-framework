@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Kafka Service Tests</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>12/13/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>24/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Mon Oct 06 09:47:26 IST 2025</td>
+<td>Started on:</td><td>Fri Oct 10 14:44:52 IST 2025</td>
 </tr>
-<tr><td>Total time:</td><td>31 seconds (31772 ms)</td>
+<tr><td>Total time:</td><td>1 seconds (1487 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,24 +75,83 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: test, String value</td>
-<td><div><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
+<td title='tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes()'><b>testProcessBrowseDataWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, {tag=Tag1, value=123, timestamp=1760087693022}, Integer value</td>
+<td><div><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - → POST http://localhost:8085/kafka/api/kafkaBrowse/processBrowseData
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 102
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.post(APIRequestContextImpl.java:212)
+	at base.RealServiceTestBase.processBrowseData(RealServiceTestBase.java:402)
+	at tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes(KafkaServiceTest.java:41)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 23 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace50424546", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace50424546'><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
-	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:907)
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - → POST http://localhost:8085/kafka/api/kafkaBrowse/processBrowseData
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 102
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 33 more
+... Removed 18 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1936417349", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1936417349'><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - → POST http://localhost:8085/kafka/api/kafkaBrowse/processBrowseData
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 102
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.post(APIRequestContextImpl.java:212)
+	at base.RealServiceTestBase.processBrowseData(RealServiceTestBase.java:402)
+	at tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes(KafkaServiceTest.java:41)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -116,536 +175,24 @@ function toggleAllBoxes() {
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at java.base/java.lang.Thread.run(Thread.java:833)
-</pre></div></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testConvertDataValue()'><b>testConvertDataValue</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert data value endpoint</td>
-<td><div><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertDataValue(KafkaServiceTest.java:124)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 23 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1517564497", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1517564497'><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
-	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:907)
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertDataValue(KafkaServiceTest.java:124)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:28)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:418)
-	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-</pre></div></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: false, Boolean string</td>
-<td><div><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 23 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace90710415", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace90710415'><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
-	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:907)
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:28)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:418)
-	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-</pre></div></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testHasChangedWithNullValues()'><b>testHasChangedWithNullValues</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test has changed with null values</td>
-<td><div><pre>java.lang.AssertionError: Response is not valid JSON expected [true] but found [false]
-	at base.RealServiceTestBase.verifyJsonResponse(RealServiceTestBase.java:160)
-	at tests.KafkaServiceTest.testHasChangedWithNullValues(KafkaServiceTest.java:99)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 21 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1226301470", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1226301470'><pre>java.lang.AssertionError: Response is not valid JSON expected [true] but found [false]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertTrue(Assert.java:45)
-	at base.RealServiceTestBase.verifyJsonResponse(RealServiceTestBase.java:160)
-	at tests.KafkaServiceTest.testHasChangedWithNullValues(KafkaServiceTest.java:99)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:28)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:418)
-	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-</pre></div></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: , Empty string</td>
-<td><div><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 23 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace430169609", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace430169609'><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
-	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:907)
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:28)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:418)
-	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-</pre></div></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testConvertValue()'><b>testConvertValue</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value endpoint</td>
-<td><div><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValue(KafkaServiceTest.java:111)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 23 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace427871247", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace427871247'><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
-	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:907)
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValue(KafkaServiceTest.java:111)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:28)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:418)
-	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-</pre></div></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testHasChanged()'><b>testHasChanged</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test has changed endpoint with different values</td>
-<td><div><pre>java.lang.AssertionError: Response is not valid JSON expected [true] but found [false]
-	at base.RealServiceTestBase.verifyJsonResponse(RealServiceTestBase.java:160)
-	at tests.KafkaServiceTest.testHasChanged(KafkaServiceTest.java:64)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 21 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1293359239", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1293359239'><pre>java.lang.AssertionError: Response is not valid JSON expected [true] but found [false]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertTrue(Assert.java:45)
-	at base.RealServiceTestBase.verifyJsonResponse(RealServiceTestBase.java:160)
-	at tests.KafkaServiceTest.testHasChanged(KafkaServiceTest.java:64)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:28)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:418)
-	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-</pre></div></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: 123.45, Double string</td>
-<td><div><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 23 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace971099792", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace971099792'><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
-	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:907)
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:28)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:418)
-	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-</pre></div></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: true, Boolean string</td>
-<td><div><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 23 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace2144879276", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace2144879276'><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
-	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:907)
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:28)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:418)
-	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-</pre></div></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testHasChangedWithIdenticalData()'><b>testHasChangedWithIdenticalData</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test has changed with identical data</td>
-<td><div><pre>java.lang.AssertionError: Response is not valid JSON expected [true] but found [false]
-	at base.RealServiceTestBase.verifyJsonResponse(RealServiceTestBase.java:160)
-	at tests.KafkaServiceTest.testHasChangedWithIdenticalData(KafkaServiceTest.java:80)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 21 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1561863810", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1561863810'><pre>java.lang.AssertionError: Response is not valid JSON expected [true] but found [false]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertTrue(Assert.java:45)
-	at base.RealServiceTestBase.verifyJsonResponse(RealServiceTestBase.java:160)
-	at tests.KafkaServiceTest.testHasChangedWithIdenticalData(KafkaServiceTest.java:80)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:28)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:418)
-	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-</pre></div></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: 42, Integer string</td>
-<td><div><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 23 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace633412509", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace633412509'><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
-	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:907)
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:28)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:418)
-	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-</pre></div></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: null, Null string</td>
-<td><div><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 23 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace326106450", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace326106450'><pre>java.lang.AssertionError: Expected status 200 but got 500 expected [200] but found [500]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
-	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:907)
-	at base.RealServiceTestBase.verifyResponseStatus(RealServiceTestBase.java:132)
-	at tests.KafkaServiceTest.testConvertValueWithDifferentTypes(KafkaServiceTest.java:135)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:28)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:418)
-	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-</pre></div></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testKafkaServiceHealth()'><b>testKafkaServiceHealth</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test Kafka service health</td>
-<td><div><pre>java.lang.AssertionError: Kafka service should be healthy expected [true] but found [false]
-	at tests.KafkaServiceTest.testKafkaServiceHealth(KafkaServiceTest.java:145)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 21 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace2110771185", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace2110771185'><pre>java.lang.AssertionError: Kafka service should be healthy expected [true] but found [false]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertTrue(Assert.java:45)
-	at tests.KafkaServiceTest.testKafkaServiceHealth(KafkaServiceTest.java:145)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:28)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:418)
-	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - → POST http://localhost:8085/kafka/api/kafkaBrowse/processBrowseData
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 102
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 33 more
 </pre></div></td>
 <td>0</td>
 <td>tests.KafkaServiceTest@2b62442c</td></tr>
@@ -658,42 +205,27 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='tests.KafkaServiceTest.testKafkaMessageProcessingPerformance()'><b>testKafkaMessageProcessingPerformance</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test Kafka message processing performance</td>
+<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: true, Boolean string</td>
 <td></td>
 <td>0</td>
 <td>tests.KafkaServiceTest@2b62442c</td></tr>
 <tr>
-<td title='tests.KafkaServiceTest.testKafkaErrorHandling()'><b>testKafkaErrorHandling</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test Kafka error handling</td>
+<td title='tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes()'><b>testProcessBrowseDataWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, {tag=Tag3, value=true, timestamp=1760087693022}, Boolean value</td>
 <td></td>
 <td>0</td>
 <td>tests.KafkaServiceTest@2b62442c</td></tr>
 <tr>
-<td title='tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes()'><b>testProcessBrowseDataWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, {tag=Tag4, value=123.45, timestamp=1759724278336}, Double value</td>
+<td title='tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes()'><b>testProcessBrowseDataWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, {tag=Tag2, value=String Value, timestamp=1760087693022}, String value</td>
 <td></td>
 <td>0</td>
 <td>tests.KafkaServiceTest@2b62442c</td></tr>
 <tr>
-<td title='tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes()'><b>testProcessBrowseDataWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, {tag=Tag1, value=123, timestamp=1759724278336}, Integer value</td>
+<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: , Empty string</td>
 <td></td>
 <td>0</td>
 <td>tests.KafkaServiceTest@2b62442c</td></tr>
 <tr>
-<td title='tests.KafkaServiceTest.testConcurrentKafkaOperations()'><b>testConcurrentKafkaOperations</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test concurrent Kafka operations</td>
-<td></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes()'><b>testProcessBrowseDataWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, {tag=Tag2, value=String Value, timestamp=1759724278336}, String value</td>
-<td></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes()'><b>testProcessBrowseDataWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data with different data types<br>Parameters: ns=2;i=5001, {tag=Tag6, value=Another String, timestamp=1759724278336}, Another numeric node ID</td>
-<td></td>
-<td>0</td>
-<td>tests.KafkaServiceTest@2b62442c</td></tr>
-<tr>
-<td title='tests.KafkaServiceTest.testProcessBrowseData()'><b>testProcessBrowseData</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data endpoint</td>
+<td title='tests.KafkaServiceTest.testHasChangedWithNullValues()'><b>testHasChangedWithNullValues</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test has changed with null values</td>
 <td></td>
 <td>0</td>
 <td>tests.KafkaServiceTest@2b62442c</td></tr>
@@ -703,17 +235,92 @@ function toggleAllBoxes() {
 <td>0</td>
 <td>tests.KafkaServiceTest@2b62442c</td></tr>
 <tr>
+<td title='tests.KafkaServiceTest.testKafkaServiceHealth()'><b>testKafkaServiceHealth</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test Kafka service health</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: 123.45, Double string</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testConcurrentKafkaOperations()'><b>testConcurrentKafkaOperations</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test concurrent Kafka operations</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testKafkaMessageProcessingPerformance()'><b>testKafkaMessageProcessingPerformance</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test Kafka message processing performance</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: null, Null string</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: 42, Integer string</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testProcessBrowseData()'><b>testProcessBrowseData</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data endpoint</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testHasChangedWithIdenticalData()'><b>testHasChangedWithIdenticalData</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test has changed with identical data</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testConvertValue()'><b>testConvertValue</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value endpoint</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testHasChanged()'><b>testHasChanged</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test has changed endpoint with different values</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: false, Boolean string</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes()'><b>testProcessBrowseDataWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data with different data types<br>Parameters: ns=0;i=2253, {tag=Tag5, value=42, timestamp=1760087693022}, Numeric node ID</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testConvertDataValue()'><b>testConvertDataValue</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert data value endpoint</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
 <td title='tests.KafkaServiceTest.testKafkaMessageValidation()'><b>testKafkaMessageValidation</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test Kafka message validation</td>
 <td></td>
 <td>0</td>
 <td>tests.KafkaServiceTest@2b62442c</td></tr>
 <tr>
-<td title='tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes()'><b>testProcessBrowseDataWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, {tag=Tag3, value=true, timestamp=1759724278336}, Boolean value</td>
+<td title='tests.KafkaServiceTest.testConvertValueWithDifferentTypes()'><b>testConvertValueWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test convert value with different data types<br>Parameters: test, String value</td>
 <td></td>
 <td>0</td>
 <td>tests.KafkaServiceTest@2b62442c</td></tr>
 <tr>
-<td title='tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes()'><b>testProcessBrowseDataWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data with different data types<br>Parameters: ns=0;i=2253, {tag=Tag5, value=42, timestamp=1759724278336}, Numeric node ID</td>
+<td title='tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes()'><b>testProcessBrowseDataWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data with different data types<br>Parameters: ns=2;i=5001, {tag=Tag6, value=Another String, timestamp=1760087693022}, Another numeric node ID</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testProcessBrowseDataWithDifferentTypes()'><b>testProcessBrowseDataWithDifferentTypes</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test process browse data with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, {tag=Tag4, value=123.45, timestamp=1760087693022}, Double value</td>
+<td></td>
+<td>0</td>
+<td>tests.KafkaServiceTest@2b62442c</td></tr>
+<tr>
+<td title='tests.KafkaServiceTest.testKafkaErrorHandling()'><b>testKafkaErrorHandling</b><br>Test class: tests.KafkaServiceTest<br>Test method: Test Kafka error handling</td>
 <td></td>
 <td>0</td>
 <td>tests.KafkaServiceTest@2b62442c</td></tr>

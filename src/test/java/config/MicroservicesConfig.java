@@ -39,6 +39,10 @@ public class MicroservicesConfig {
     
     // Service Registry Configuration
     public static String getServiceRegistryUrl() {
+        // Check if we're in mock mode and use unified mock server
+        if (TestConfigManager.isMockMode()) {
+            return "http://localhost:8085/eureka";
+        }
         return config.getProperty("service.registry.url", "http://localhost:8761");
     }
     
@@ -48,9 +52,9 @@ public class MicroservicesConfig {
     
     // OPC UA Service Configuration
     public static String getOpcUaServiceUrl() {
-        // Check if we're in mock mode and use mock server port
+        // Check if we're in mock mode and use unified mock server
         if (TestConfigManager.isMockMode()) {
-            return "http://localhost:" + TestConfigManager.getMockServerPort();
+            return "http://localhost:8085/opcua";
         }
         return config.getProperty("opcua.service.url", "http://localhost:8081");
     }
@@ -89,9 +93,9 @@ public class MicroservicesConfig {
     
     // Read Data Service Configuration
     public static String getReadDataServiceUrl() {
-        // Check if we're in mock mode and use mock server port
+        // Check if we're in mock mode and use unified mock server
         if (TestConfigManager.isMockMode()) {
-            return "http://localhost:" + TestConfigManager.getMockServerPort();
+            return "http://localhost:8085/read";
         }
         return config.getProperty("readdata.service.url", "http://localhost:8082");
     }
@@ -102,9 +106,9 @@ public class MicroservicesConfig {
     
     // Kafka Service Configuration
     public static String getKafkaServiceUrl() {
-        // Check if we're in mock mode and use mock server port
+        // Check if we're in mock mode and use unified mock server
         if (TestConfigManager.isMockMode()) {
-            return "http://localhost:" + TestConfigManager.getMockServerPort();
+            return "http://localhost:8085/kafka";
         }
         return config.getProperty("kafka.service.url", "http://localhost:8083");
     }
@@ -123,9 +127,9 @@ public class MicroservicesConfig {
     
     // Write Data Service Configuration
     public static String getWriteDataServiceUrl() {
-        // Check if we're in mock mode and use mock server port
+        // Check if we're in mock mode and use unified mock server
         if (TestConfigManager.isMockMode()) {
-            return "http://localhost:" + TestConfigManager.getMockServerPort();
+            return "http://localhost:8085/write";
         }
         return config.getProperty("writedata.service.url", "http://localhost:8084");
     }

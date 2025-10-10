@@ -6,84 +6,58 @@
     <listener class-name="utils.EnhancedTestListener"/>
     <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
   </listeners>
-  <test thread-count="3" parallel="tests" name="OPC UA Connection Service Tests(failed)">
-    <classes>
-      <class name="tests.OpUaConnectionServiceTest">
-        <methods>
-          <include name="testOpcUaConnectionRetry"/>
-          <include name="setUpTest"/>
-          <include name="testOpcUaConnectionInit"/>
-          <include name="setUpRealServiceContext"/>
-          <include name="testOpcUaServiceHealth"/>
-          <include name="testOpcUaConnectionPerformance"/>
-          <include name="testOpcUaConnectionConnect"/>
-          <include name="testOpcUaConnectionSequence"/>
-          <include name="tearDownTest"/>
-          <include name="testOpcUaConnectionErrorHandling"/>
-          <include name="testOpcUaConnectionStatus"/>
-          <include name="setUpOpUaTests"/>
-          <include name="tearDownRealServiceContext"/>
-        </methods>
-      </class> <!-- tests.OpUaConnectionServiceTest -->
-    </classes>
-  </test> <!-- OPC UA Connection Service Tests(failed) -->
-  <test thread-count="3" parallel="tests" name="Write Data Service Tests(failed)">
-    <classes>
-      <class name="tests.WriteDataServiceTest">
-        <methods>
-          <include name="testWriteNodeValidation"/>
-          <include name="setUpTest"/>
-          <include name="setUpRealServiceContext"/>
-          <include name="testWriteNodePerformance"/>
-          <include name="testWriteNodeWithDouble"/>
-          <include name="testWriteNodeErrorHandling"/>
-          <include name="tearDownTest"/>
-          <include name="testWriteNodeWithString"/>
-          <include name="testWriteNodeWithBoolean"/>
-          <include name="testWriteNodeWithNullValue"/>
-          <include name="testWriteNodeWithInteger"/>
-          <include name="testWriteNodeWithLargeData"/>
-          <include name="tearDownRealServiceContext"/>
-          <include name="testWriteNodeWithDifferentDataTypes"/>
-          <include name="testConcurrentWriteOperations"/>
-          <include name="setUpWriteDataTests"/>
-          <include name="testWriteDataServiceHealth"/>
-        </methods>
-      </class> <!-- tests.WriteDataServiceTest -->
-    </classes>
-  </test> <!-- Write Data Service Tests(failed) -->
   <test thread-count="3" parallel="tests" name="Read Data Service Tests(failed)">
     <classes>
       <class name="tests.ReadDataServiceTest">
         <methods>
-          <include name="testBrowseTagsWithDefaultNode"/>
+          <include name="testReadDataErrorHandling"/>
           <include name="setUpTest"/>
           <include name="setUpRealServiceContext"/>
-          <include name="testSubscribeToData"/>
+          <include name="setUpReadDataTests"/>
+          <include name="testReadNode2"/>
           <include name="testReadNode"/>
           <include name="testReadTagValuesSimplified"/>
-          <include name="testReadValue"/>
-          <include name="tearDownTest"/>
-          <include name="testReadDataServiceHealth"/>
-          <include name="testReadDataErrorHandling"/>
-          <include name="testReadDataPerformance"/>
-          <include name="testReadValueWithDifferentNodes"/>
-          <include name="testConcurrentReadOperations"/>
-          <include name="setUpReadDataTests"/>
-          <include name="testBrowseTags"/>
-          <include name="testReadNode2"/>
           <include name="tearDownRealServiceContext"/>
+          <include name="tearDownTest"/>
         </methods>
       </class> <!-- tests.ReadDataServiceTest -->
     </classes>
   </test> <!-- Read Data Service Tests(failed) -->
+  <test thread-count="3" parallel="tests" name="Write Data Service Tests(failed)">
+    <classes>
+      <class name="tests.WriteDataServiceTest">
+        <methods>
+          <include name="setUpTest"/>
+          <include name="setUpRealServiceContext"/>
+          <include name="tearDownRealServiceContext"/>
+          <include name="testWriteNodeWithDifferentDataTypes" invocation-numbers="0 1"/>
+          <include name="testWriteNodeErrorHandling"/>
+          <include name="tearDownTest"/>
+          <include name="setUpWriteDataTests"/>
+        </methods>
+      </class> <!-- tests.WriteDataServiceTest -->
+    </classes>
+  </test> <!-- Write Data Service Tests(failed) -->
+  <test thread-count="3" parallel="tests" name="Kafka Service Tests(failed)">
+    <classes>
+      <class name="tests.KafkaServiceTest">
+        <methods>
+          <include name="setUpKafkaTests"/>
+          <include name="setUpTest"/>
+          <include name="setUpRealServiceContext"/>
+          <include name="testProcessBrowseDataWithDifferentTypes" invocation-numbers="0"/>
+          <include name="tearDownRealServiceContext"/>
+          <include name="tearDownTest"/>
+        </methods>
+      </class> <!-- tests.KafkaServiceTest -->
+    </classes>
+  </test> <!-- Kafka Service Tests(failed) -->
   <test thread-count="3" parallel="tests" name="Legacy API Tests (Mock Server)(failed)">
     <classes>
       <class name="tests.ApiTestExecutor">
         <methods>
           <include name="tearDownApiContext"/>
           <include name="testOpcInit"/>
-          <include name="testConvertDataValue"/>
           <include name="testOpcConnectionStatus"/>
           <include name="testReadValue"/>
           <include name="testOpcConnect"/>
@@ -92,7 +66,6 @@
           <include name="testReadNode2"/>
           <include name="testKafkaHasChanged"/>
           <include name="testKafkaProcessBrowseData"/>
-          <include name="testConvertValue"/>
           <include name="setup"/>
           <include name="testWriteNode"/>
           <include name="testReadNode"/>
@@ -110,44 +83,14 @@
           <include name="setUpTest"/>
           <include name="setUpIntegrationTests"/>
           <include name="setUpRealServiceContext"/>
-          <include name="testConcurrentOperationsAcrossServices"/>
+          <include name="testPerformanceUnderLoad"/>
           <include name="testReadWriteCycle"/>
           <include name="testServiceRecoveryAfterFailure"/>
-          <include name="tearDownTest"/>
-          <include name="testCompleteDataFlow"/>
-          <include name="testDataConsistencyAcrossServices"/>
-          <include name="testPerformanceUnderLoad"/>
           <include name="testErrorPropagationAcrossServices"/>
           <include name="tearDownRealServiceContext"/>
+          <include name="tearDownTest"/>
         </methods>
       </class> <!-- tests.IntegrationTest -->
     </classes>
   </test> <!-- Integration Tests(failed) -->
-  <test thread-count="3" parallel="tests" name="Kafka Service Tests(failed)">
-    <classes>
-      <class name="tests.KafkaServiceTest">
-        <methods>
-          <include name="testHasChangedWithIdenticalData"/>
-          <include name="setUpTest"/>
-          <include name="setUpRealServiceContext"/>
-          <include name="testProcessBrowseDataWithDifferentTypes"/>
-          <include name="testKafkaErrorHandling"/>
-          <include name="testConvertValue"/>
-          <include name="testKafkaMessageValidation"/>
-          <include name="testKafkaMessageProcessingPerformance"/>
-          <include name="testKafkaServiceHealth"/>
-          <include name="testKafkaLargeMessageHandling"/>
-          <include name="tearDownTest"/>
-          <include name="testHasChanged"/>
-          <include name="setUpKafkaTests"/>
-          <include name="testConvertDataValue"/>
-          <include name="testConcurrentKafkaOperations"/>
-          <include name="testProcessBrowseData"/>
-          <include name="tearDownRealServiceContext"/>
-          <include name="testConvertValueWithDifferentTypes"/>
-          <include name="testHasChangedWithNullValues"/>
-        </methods>
-      </class> <!-- tests.KafkaServiceTest -->
-    </classes>
-  </test> <!-- Kafka Service Tests(failed) -->
 </suite> <!-- Failed suite [Microservices API Test Suite] -->

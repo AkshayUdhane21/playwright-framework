@@ -36,12 +36,12 @@ public class RealServiceTestBase {
             // Initialize ExtentReports
             ExtentManager.initializeReport();
             
-            // If in mock mode, start the mock server using singleton
+            // If in mock mode, start the unified mock server
             if (config.TestConfigManager.isMockMode()) {
-                System.out.println("Mock mode: Starting mock server...");
-                utils.MockBackendServer mockServer = utils.MockBackendServer.getInstance();
+                System.out.println("Mock mode: Starting unified mock server...");
+                utils.UnifiedMockServer mockServer = utils.UnifiedMockServer.getInstance();
                 mockServer.start();
-                System.out.println("Mock server started successfully!");
+                System.out.println("Unified mock server started successfully!");
             }
             
             System.out.println("Real service test context initialized!");
@@ -75,6 +75,12 @@ public class RealServiceTestBase {
             if (ExtentManager.getExtentReports() != null) {
                 ExtentManager.flushReport();
             }
+            
+            // Stop unified mock server if in mock mode
+            if (config.TestConfigManager.isMockMode()) {
+                utils.UnifiedMockServer.stopInstance();
+            }
+            
             System.out.println("Real service test context closed!");
         } catch (Exception e) {
             System.err.println("Error during cleanup: " + e.getMessage());
@@ -185,7 +191,9 @@ public class RealServiceTestBase {
             String baseUrl = getServiceBaseUrl(serviceName);
             // Check if we're in mock mode and use the mock server health endpoint
             if (config.TestConfigManager.isMockMode()) {
-                APIResponse response = apiContext.get(baseUrl + "/health");
+                // For mock mode, use the specific service health endpoint
+                String healthEndpoint = baseUrl + "/actuator/health";
+                APIResponse response = apiContext.get(healthEndpoint);
                 boolean isHealthy = response.status() == 200;
                 if (extentTest != null) {
                     extentTest.log(isHealthy ? Status.PASS : Status.FAIL, 

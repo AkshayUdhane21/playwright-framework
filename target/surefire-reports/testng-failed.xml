@@ -1,51 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite thread-count="3" parallel="tests" name="Failed suite [Microservices API Test Suite]" guice-stage="DEVELOPMENT" verbose="0">
-  <listeners>
-    <listener class-name="utils.TestListener"/>
-    <listener class-name="utils.EnhancedTestListener"/>
-    <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
-  </listeners>
-  <test thread-count="3" parallel="tests" name="Read Data Service Tests(failed)" verbose="0">
+<suite name="Failed suite [Surefire suite]" verbose="0">
+  <test thread-count="5" name="Surefire test(failed)" verbose="0">
     <classes>
-      <class name="tests.ReadDataServiceTest">
+      <class name="tests.ApiTestExecutor">
         <methods>
-          <include name="testReadDataErrorHandling"/>
-          <include name="setUpTest"/>
-          <include name="setUpRealServiceContext"/>
-          <include name="setUpReadDataTests"/>
-          <include name="tearDownRealServiceContext"/>
-          <include name="tearDownTest"/>
+          <include name="tearDownApiContext"/>
+          <include name="testKafkaHasChanged"/>
+          <include name="testKafkaProcessBrowseData"/>
+          <include name="testConvertDataValue"/>
+          <include name="testConvertValue"/>
+          <include name="setup"/>
+          <include name="testWriteNode"/>
+          <include name="setUpApiContext"/>
+          <include name="teardown"/>
         </methods>
-      </class> <!-- tests.ReadDataServiceTest -->
+      </class> <!-- tests.ApiTestExecutor -->
     </classes>
-  </test> <!-- Read Data Service Tests(failed) -->
-  <test thread-count="3" parallel="tests" name="Write Data Service Tests(failed)" verbose="0">
-    <classes>
-      <class name="tests.WriteDataServiceTest">
-        <methods>
-          <include name="setUpTest"/>
-          <include name="setUpRealServiceContext"/>
-          <include name="tearDownRealServiceContext"/>
-          <include name="testWriteNodeErrorHandling"/>
-          <include name="tearDownTest"/>
-          <include name="setUpWriteDataTests"/>
-        </methods>
-      </class> <!-- tests.WriteDataServiceTest -->
-    </classes>
-  </test> <!-- Write Data Service Tests(failed) -->
-  <test thread-count="3" parallel="tests" name="Integration Tests(failed)" verbose="0">
-    <classes>
-      <class name="tests.IntegrationTest">
-        <methods>
-          <include name="setUpIntegrationTests"/>
-          <include name="setUpTest"/>
-          <include name="setUpRealServiceContext"/>
-          <include name="tearDownRealServiceContext"/>
-          <include name="testErrorPropagationAcrossServices"/>
-          <include name="tearDownTest"/>
-        </methods>
-      </class> <!-- tests.IntegrationTest -->
-    </classes>
-  </test> <!-- Integration Tests(failed) -->
-</suite> <!-- Failed suite [Microservices API Test Suite] -->
+  </test> <!-- Surefire test(failed) -->
+</suite> <!-- Failed suite [Surefire suite] -->

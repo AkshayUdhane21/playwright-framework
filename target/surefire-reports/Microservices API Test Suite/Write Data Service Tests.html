@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Write Data Service Tests</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>19/1/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>16/4/0</td>
 </tr><tr>
-<td>Started on:</td><td>Fri Oct 03 15:21:39 IST 2025</td>
+<td>Started on:</td><td>Fri Oct 10 14:32:52 IST 2025</td>
 </tr>
-<tr><td>Total time:</td><td>1 seconds (1299 ms)</td>
+<tr><td>Total time:</td><td>2 seconds (2509 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -76,6 +76,139 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, 123, Integer value</td>
+<td><div><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;socket hang up
+  name=&apos;Error
+  stack=&apos;Error: socket hang up
+    at Socket.socketOnEnd (node:_http_client:530:25)
+    at Socket.emit (node:events:530:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.post(APIRequestContextImpl.java:212)
+	at base.RealServiceTestBase.writeNode(RealServiceTestBase.java:390)
+	at tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes(WriteDataServiceTest.java:81)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;socket hang up
+  name=&apos;Error
+  stack=&apos;Error: socket hang up
+    at Socket.socketOnEnd (node:_http_client:530:25)
+    at Socket.emit (node:events:530:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 32 more
+... Removed 17 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace786566277", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace786566277'><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;socket hang up
+  name=&apos;Error
+  stack=&apos;Error: socket hang up
+    at Socket.socketOnEnd (node:_http_client:530:25)
+    at Socket.emit (node:events:530:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.post(APIRequestContextImpl.java:212)
+	at base.RealServiceTestBase.writeNode(RealServiceTestBase.java:390)
+	at tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes(WriteDataServiceTest.java:81)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:481)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:58)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;socket hang up
+  name=&apos;Error
+  stack=&apos;Error: socket hang up
+    at Socket.socketOnEnd (node:_http_client:530:25)
+    at Socket.emit (node:events:530:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 32 more
+</pre></div></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
 <td title='tests.WriteDataServiceTest.testWriteNodeErrorHandling()'><b>testWriteNodeErrorHandling</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node error handling with invalid node</td>
 <td><div><pre>java.lang.AssertionError: Should return error status for invalid node ID expected [true] but found [false]
 	at tests.WriteDataServiceTest.testWriteNodeErrorHandling(WriteDataServiceTest.java:103)
@@ -84,8 +217,8 @@ function toggleAllBoxes() {
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 20 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1068753714", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1068753714'><pre>java.lang.AssertionError: Should return error status for invalid node ID expected [true] but found [false]
+... Removed 20 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1857926823", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1857926823'><pre>java.lang.AssertionError: Should return error status for invalid node ID expected [true] but found [false]
 	at org.testng.Assert.fail(Assert.java:111)
 	at org.testng.Assert.failNotEquals(Assert.java:1578)
 	at org.testng.Assert.assertTrue(Assert.java:57)
@@ -114,7 +247,249 @@ function toggleAllBoxes() {
 	at java.base/java.lang.Thread.run(Thread.java:833)
 </pre></div></td>
 <td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, Test String, String value</td>
+<td><div><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 58
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.post(APIRequestContextImpl.java:212)
+	at base.RealServiceTestBase.writeNode(RealServiceTestBase.java:390)
+	at tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes(WriteDataServiceTest.java:81)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 58
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 32 more
+... Removed 17 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace2132030302", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace2132030302'><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 58
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.post(APIRequestContextImpl.java:212)
+	at base.RealServiceTestBase.writeNode(RealServiceTestBase.java:390)
+	at tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes(WriteDataServiceTest.java:81)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:481)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:58)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 58
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 32 more
+</pre></div></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithInteger()'><b>testWriteNodeWithInteger</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with integer value</td>
+<td><div><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.post(APIRequestContextImpl.java:212)
+	at base.RealServiceTestBase.writeNode(RealServiceTestBase.java:390)
+	at tests.WriteDataServiceTest.testWriteNodeWithInteger(WriteDataServiceTest.java:28)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 32 more
+... Removed 17 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace72519160", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace72519160'><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.post(APIRequestContextImpl.java:212)
+	at base.RealServiceTestBase.writeNode(RealServiceTestBase.java:390)
+	at tests.WriteDataServiceTest.testWriteNodeWithInteger(WriteDataServiceTest.java:28)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:481)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:58)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 32 more
+</pre></div></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
 </table><p>
 <table width='100%' border='1' class='invocation-passed'>
 <tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
@@ -125,100 +500,85 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, 123.45, Double value</td>
+<td title='tests.WriteDataServiceTest.testWriteNodePerformance()'><b>testWriteNodePerformance</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node performance</td>
 <td></td>
 <td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithLargeData()'><b>testWriteNodeWithLargeData</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with large data</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, true, Boolean value</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testConcurrentWriteOperations()'><b>testConcurrentWriteOperations</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test concurrent write operations</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteDataServiceHealth()'><b>testWriteDataServiceHealth</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write data service health</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: , 123, Empty node ID</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, 123, Integer value</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithInteger()'><b>testWriteNodeWithInteger</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with integer value</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, Test String, String value</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithDouble()'><b>testWriteNodeWithDouble</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with double value</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithNullValue()'><b>testWriteNodeWithNullValue</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with null value</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, , Empty string value</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeValidation()'><b>testWriteNodeValidation</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node validation</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
 <tr>
 <td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=2;i=5001, Another Test, Another numeric node ID with string</td>
 <td></td>
 <td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
 <tr>
-<td title='tests.WriteDataServiceTest.testWriteNodePerformance()'><b>testWriteNodePerformance</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node performance</td>
+<td title='tests.WriteDataServiceTest.testConcurrentWriteOperations()'><b>testConcurrentWriteOperations</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test concurrent write operations</td>
 <td></td>
 <td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
 <tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=0;i=2253, 42, Numeric node ID with integer</td>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: , 123, Empty node ID</td>
 <td></td>
 <td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithBoolean()'><b>testWriteNodeWithBoolean</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with boolean value</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
-<tr>
-<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=999;s=InvalidNode, 123, Invalid node ID</td>
-<td></td>
-<td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
 <tr>
 <td title='tests.WriteDataServiceTest.testWriteNodeWithString()'><b>testWriteNodeWithString</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with string value</td>
 <td></td>
 <td>0</td>
-<td>tests.WriteDataServiceTest@8c3619e</td></tr>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=999;s=InvalidNode, 123, Invalid node ID</td>
+<td></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithDouble()'><b>testWriteNodeWithDouble</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with double value</td>
+<td></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithLargeData()'><b>testWriteNodeWithLargeData</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with large data</td>
+<td></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, 123.45, Double value</td>
+<td></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteDataServiceHealth()'><b>testWriteDataServiceHealth</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write data service health</td>
+<td></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithBoolean()'><b>testWriteNodeWithBoolean</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with boolean value</td>
+<td></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, , Empty string value</td>
+<td></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=3;s=DataBlocksGlobal, true, Boolean value</td>
+<td></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeValidation()'><b>testWriteNodeValidation</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node validation</td>
+<td></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithNullValue()'><b>testWriteNodeWithNullValue</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with null value</td>
+<td></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
+<tr>
+<td title='tests.WriteDataServiceTest.testWriteNodeWithDifferentDataTypes()'><b>testWriteNodeWithDifferentDataTypes</b><br>Test class: tests.WriteDataServiceTest<br>Test method: Test write node with different data types<br>Parameters: ns=0;i=2253, 42, Numeric node ID with integer</td>
+<td></td>
+<td>0</td>
+<td>tests.WriteDataServiceTest@49872d67</td></tr>
 </table><p>
 </body>
 </html>

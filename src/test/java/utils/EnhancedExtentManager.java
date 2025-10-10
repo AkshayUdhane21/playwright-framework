@@ -6,7 +6,6 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.aventstack.extentreports.reporter.configuration.ViewName;
 
 import java.io.File;
@@ -41,7 +40,7 @@ public class EnhancedExtentManager {
             // Configure the reporter
             sparkReporter.config().setDocumentTitle("Microservices API Test Suite Report");
             sparkReporter.config().setReportName("Enhanced API Test Report");
-            sparkReporter.config().setTheme(Theme.STANDARD);
+            // Theme configuration removed in ExtentReports 5+
             sparkReporter.config().setTimeStampFormat("yyyy-MM-dd HH:mm:ss");
             sparkReporter.config().setCss(".nav-wrapper { background-color: #1f4e79; }");
             sparkReporter.config().setCss(".brand-logo { color: white; }");

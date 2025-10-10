@@ -4,10 +4,11 @@ base\RealServiceTestBase.class
 clients\SimpleApiClient$SimpleMockResponse.class
 utils\EnhancedExtentManager.class
 base\ApiTestBase.class
-utils\MockBackendServer.class
 tests\WriteDataServiceTest.class
+utils\MapUtils.class
 utils\TestListener.class
 config\TestConfigManager.class
+utils\UnifiedMockServer.class
 utils\ServiceStartupHelper.class
 clients\MicroservicesApiClient$MockApiResponse.class
 tests\IntegrationTest.class
@@ -19,4 +20,5 @@ config\MicroservicesConfig.class
 utils\PortUtil.class
 base\RealServiceTestBase$PerformanceMetrics.class
 config\MicroservicesConfigTest.class
+utils\ExtentManager.class
 tests\OpUaConnectionServiceTest.class

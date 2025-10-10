@@ -3,16 +3,19 @@
 <suite name="Failed suite [Surefire suite]" verbose="0">
   <test thread-count="5" name="Surefire test(failed)" verbose="0">
     <classes>
-      <class name="tests.WriteDataServiceTest">
+      <class name="tests.ApiTestExecutor">
         <methods>
-          <include name="setUpTest"/>
-          <include name="setUpRealServiceContext"/>
-          <include name="tearDownRealServiceContext"/>
-          <include name="testWriteNodeErrorHandling"/>
-          <include name="tearDownTest"/>
-          <include name="setUpWriteDataTests"/>
+          <include name="tearDownApiContext"/>
+          <include name="testKafkaHasChanged"/>
+          <include name="testKafkaProcessBrowseData"/>
+          <include name="testConvertDataValue"/>
+          <include name="testConvertValue"/>
+          <include name="setup"/>
+          <include name="testWriteNode"/>
+          <include name="setUpApiContext"/>
+          <include name="teardown"/>
         </methods>
-      </class> <!-- tests.WriteDataServiceTest -->
+      </class> <!-- tests.ApiTestExecutor -->
     </classes>
   </test> <!-- Surefire test(failed) -->
 </suite> <!-- Failed suite [Surefire suite] -->

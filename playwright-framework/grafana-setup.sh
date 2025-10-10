@@ -1,4 +1,4 @@
-H#!/bin/bash
+#!/bin/bash
 
 # Grafana Dashboard Setup Script for Playwright Testing Framework
 # This script sets up Grafana with Prometheus and InfluxDB for test metrics visualization

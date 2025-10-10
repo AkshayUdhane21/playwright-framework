@@ -9,9 +9,30 @@ pipeline {
         JAVA_HOME = tool 'JDK11'
         MAVEN_OPTS = '-Xmx1024m -XX:MaxPermSize=256m'
         TEST_MODE = 'mock'
+        // Git configuration for better connectivity
+        GIT_SSL_NO_VERIFY = 'true'
+        GIT_HTTP_LOW_SPEED_LIMIT = '1000'
+        GIT_HTTP_LOW_SPEED_TIME = '300'
     }
 
     stages {
+        stage('Git Connectivity Check') {
+            steps {
+                echo "Checking Git connectivity..."
+                script {
+                    try {
+                        bat 'git config --global http.sslVerify false'
+                        bat 'git config --global http.postBuffer 524288000'
+                        bat 'git config --global http.lowSpeedLimit 1000'
+                        bat 'git config --global http.lowSpeedTime 300'
+                        echo "Git configuration updated for better connectivity"
+                    } catch (Exception e) {
+                        echo "Git configuration step failed: ${e.getMessage()}"
+                    }
+                }
+            }
+        }
+        
         stage('Preparation') {
             steps {
                 echo "Maven setup verification"
@@ -67,25 +88,27 @@ pipeline {
 
     post {
         always {
-            echo "Generating test reports..."
-            publishHTML([
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: 'test-output',
-                reportFiles: 'Enhanced_Test_Report_*.html',
-                reportName: 'Test Report'
-            ])
-            
-            // Archive test results
-            archiveArtifacts artifacts: 'test-output/**/*', allowEmptyArchive: true
-            archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: true
-            
-            // Publish TestNG results
-            publishTestResults testResultsPattern: 'test-output/testng-results.xml'
-            
-            echo "Workspace cleanup..."
-            cleanWs()
+            node {
+                echo "Generating test reports..."
+                publishHTML([
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'test-output',
+                    reportFiles: 'Enhanced_Test_Report_*.html',
+                    reportName: 'Test Report'
+                ])
+                
+                // Archive test results
+                archiveArtifacts artifacts: 'test-output/**/*', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: true
+                
+                // Publish TestNG results
+                publishTestResults testResultsPattern: 'test-output/testng-results.xml'
+                
+                echo "Workspace cleanup..."
+                cleanWs()
+            }
         }
         success {
             echo "✅ All tests passed successfully!"

@@ -9,18 +9,32 @@ public class TestConfigManager {
     
     static {
         config = new Properties();
-        try (InputStream input = TestConfigManager.class.getClassLoader().getResourceAsStream("test-config.properties")) {
+        try (InputStream input = TestConfigManager.class.getClassLoader().getResourceAsStream("test-config-comprehensive.properties")) {
             if (input != null) {
                 config.load(input);
+                System.out.println("Loaded comprehensive test configuration");
             } else {
-                System.err.println("Warning: test-config.properties not found in resources. Using default values.");
+                // Fallback to default config
+                try (InputStream fallbackInput = TestConfigManager.class.getClassLoader().getResourceAsStream("test-config.properties")) {
+                    if (fallbackInput != null) {
+                        config.load(fallbackInput);
+                        System.out.println("Loaded fallback test configuration");
+                    } else {
+                        System.err.println("Warning: No test configuration files found. Using default values.");
+                    }
+                }
             }
         } catch (IOException e) {
-            System.err.println("Warning: Error loading test-config.properties: " + e.getMessage() + ". Using default values.");
+            System.err.println("Warning: Error loading test configuration: " + e.getMessage() + ". Using default values.");
         }
     }
     
     public static String getTestMode() {
+        // Check system property first, then config file
+        String systemProperty = System.getProperty("test.mode");
+        if (systemProperty != null && !systemProperty.isEmpty()) {
+            return systemProperty;
+        }
         return config.getProperty("test.mode", "real");
     }
     
@@ -36,8 +50,13 @@ public class TestConfigManager {
         return Integer.parseInt(config.getProperty("mock.server.port", "8081"));
     }
     
-    public static boolean isMockServerEnabled() {
-        return Boolean.parseBoolean(config.getProperty("mock.server.enabled", "true"));
+    public static boolean isMockServicesEnabled() {
+        // Check system property first, then config file
+        String systemProperty = System.getProperty("mock.services.enabled");
+        if (systemProperty != null && !systemProperty.isEmpty()) {
+            return Boolean.parseBoolean(systemProperty);
+        }
+        return Boolean.parseBoolean(config.getProperty("mock.services.enabled", "true"));
     }
     
     public static boolean isRealServicesEnabled() {

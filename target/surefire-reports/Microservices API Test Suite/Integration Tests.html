@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Integration Tests</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>7/1/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>1/7/0</td>
 </tr><tr>
-<td>Started on:</td><td>Fri Oct 03 15:21:41 IST 2025</td>
+<td>Started on:</td><td>Fri Oct 10 14:32:54 IST 2025</td>
 </tr>
-<tr><td>Total time:</td><td>0 seconds (759 ms)</td>
+<tr><td>Total time:</td><td>7 seconds (7509 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -76,20 +76,371 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='tests.IntegrationTest.testErrorPropagationAcrossServices()'><b>testErrorPropagationAcrossServices</b><br>Test class: tests.IntegrationTest<br>Test method: Test error propagation across services</td>
-<td><div><pre>java.lang.AssertionError: Should return error for invalid node expected [true] but found [false]
-	at tests.IntegrationTest.testErrorPropagationAcrossServices(IntegrationTest.java:177)
+<td title='tests.IntegrationTest.testServiceDiscovery()'><b>testServiceDiscovery</b><br>Test class: tests.IntegrationTest<br>Test method: Test service discovery and health check</td>
+<td><div><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? GET http://localhost:8085/eureka/actuator/health
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.get(APIRequestContextImpl.java:197)
+	at com.microsoft.playwright.APIRequestContext.get(APIRequestContext.java:281)
+	at base.RealServiceTestBase.getServiceRegistryStatus(RealServiceTestBase.java:430)
+	at tests.IntegrationTest.testServiceDiscovery(IntegrationTest.java:93)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at java.base/java.lang.Thread.run(Thread.java:833)
-... Removed 20 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1449264010", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1449264010'><pre>java.lang.AssertionError: Should return error for invalid node expected [true] but found [false]
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? GET http://localhost:8085/eureka/actuator/health
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 33 more
+... Removed 17 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1455690773", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1455690773'><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? GET http://localhost:8085/eureka/actuator/health
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.get(APIRequestContextImpl.java:197)
+	at com.microsoft.playwright.APIRequestContext.get(APIRequestContext.java:281)
+	at base.RealServiceTestBase.getServiceRegistryStatus(RealServiceTestBase.java:430)
+	at tests.IntegrationTest.testServiceDiscovery(IntegrationTest.java:93)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:481)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:58)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? GET http://localhost:8085/eureka/actuator/health
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 33 more
+</pre></div></td>
+<td>0</td>
+<td>tests.IntegrationTest@37efd131</td></tr>
+<tr>
+<td title='tests.IntegrationTest.testErrorPropagationAcrossServices()'><b>testErrorPropagationAcrossServices</b><br>Test class: tests.IntegrationTest<br>Test method: Test error propagation across services</td>
+<td><div><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? GET http://localhost:8085/read/api/read/readValue?nodeId=ns=999;s=InvalidNode
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.get(APIRequestContextImpl.java:197)
+	at com.microsoft.playwright.APIRequestContext.get(APIRequestContext.java:281)
+	at base.RealServiceTestBase.readValue(RealServiceTestBase.java:353)
+	at tests.IntegrationTest.testErrorPropagationAcrossServices(IntegrationTest.java:176)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? GET http://localhost:8085/read/api/read/readValue?nodeId=ns=999;s=InvalidNode
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 33 more
+... Removed 17 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1385787131", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1385787131'><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? GET http://localhost:8085/read/api/read/readValue?nodeId=ns=999;s=InvalidNode
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.get(APIRequestContextImpl.java:197)
+	at com.microsoft.playwright.APIRequestContext.get(APIRequestContext.java:281)
+	at base.RealServiceTestBase.readValue(RealServiceTestBase.java:353)
+	at tests.IntegrationTest.testErrorPropagationAcrossServices(IntegrationTest.java:176)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:481)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:58)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? GET http://localhost:8085/read/api/read/readValue?nodeId=ns=999;s=InvalidNode
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 33 more
+</pre></div></td>
+<td>0</td>
+<td>tests.IntegrationTest@37efd131</td></tr>
+<tr>
+<td title='tests.IntegrationTest.testReadWriteCycle()'><b>testReadWriteCycle</b><br>Test class: tests.IntegrationTest<br>Test method: Test read-write cycle</td>
+<td><div><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.post(APIRequestContextImpl.java:212)
+	at base.RealServiceTestBase.writeNode(RealServiceTestBase.java:390)
+	at tests.IntegrationTest.testReadWriteCycle(IntegrationTest.java:74)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 32 more
+... Removed 17 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1641915791", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1641915791'><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.post(APIRequestContextImpl.java:212)
+	at base.RealServiceTestBase.writeNode(RealServiceTestBase.java:390)
+	at tests.IntegrationTest.testReadWriteCycle(IntegrationTest.java:74)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:481)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:58)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 32 more
+</pre></div></td>
+<td>0</td>
+<td>tests.IntegrationTest@37efd131</td></tr>
+<tr>
+<td title='tests.IntegrationTest.testConcurrentOperationsAcrossServices()'><b>testConcurrentOperationsAcrossServices</b><br>Test class: tests.IntegrationTest<br>Test method: Test concurrent operations across services</td>
+<td><div><pre>java.lang.AssertionError: At least 70% of concurrent operations should succeed expected [true] but found [false]
+	at tests.IntegrationTest.testConcurrentOperationsAcrossServices(IntegrationTest.java:163)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+... Removed 20 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1382864089", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1382864089'><pre>java.lang.AssertionError: At least 70% of concurrent operations should succeed expected [true] but found [false]
 	at org.testng.Assert.fail(Assert.java:111)
 	at org.testng.Assert.failNotEquals(Assert.java:1578)
 	at org.testng.Assert.assertTrue(Assert.java:57)
-	at tests.IntegrationTest.testErrorPropagationAcrossServices(IntegrationTest.java:177)
+	at tests.IntegrationTest.testConcurrentOperationsAcrossServices(IntegrationTest.java:163)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -114,7 +465,283 @@ function toggleAllBoxes() {
 	at java.base/java.lang.Thread.run(Thread.java:833)
 </pre></div></td>
 <td>0</td>
-<td>tests.IntegrationTest@72437d8d</td></tr>
+<td>tests.IntegrationTest@37efd131</td></tr>
+<tr>
+<td title='tests.IntegrationTest.testPerformanceUnderLoad()'><b>testPerformanceUnderLoad</b><br>Test class: tests.IntegrationTest<br>Test method: Test performance under load</td>
+<td><div><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? GET http://localhost:8085/read/api/read/browse?startingNodeParam=ns=3;s=%22WMS%20TO%20PLC%22
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.get(APIRequestContextImpl.java:197)
+	at com.microsoft.playwright.APIRequestContext.get(APIRequestContext.java:281)
+	at base.RealServiceTestBase.browseTags(RealServiceTestBase.java:349)
+	at tests.IntegrationTest.testPerformanceUnderLoad(IntegrationTest.java:204)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? GET http://localhost:8085/read/api/read/browse?startingNodeParam=ns=3;s=%22WMS%20TO%20PLC%22
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 33 more
+... Removed 17 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1195807199", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1195807199'><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? GET http://localhost:8085/read/api/read/browse?startingNodeParam=ns=3;s=%22WMS%20TO%20PLC%22
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.get(APIRequestContextImpl.java:197)
+	at com.microsoft.playwright.APIRequestContext.get(APIRequestContext.java:281)
+	at base.RealServiceTestBase.browseTags(RealServiceTestBase.java:349)
+	at tests.IntegrationTest.testPerformanceUnderLoad(IntegrationTest.java:204)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:481)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:58)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? GET http://localhost:8085/read/api/read/browse?startingNodeParam=ns=3;s=%22WMS%20TO%20PLC%22
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 33 more
+</pre></div></td>
+<td>0</td>
+<td>tests.IntegrationTest@37efd131</td></tr>
+<tr>
+<td title='tests.IntegrationTest.testDataConsistencyAcrossServices()'><b>testDataConsistencyAcrossServices</b><br>Test class: tests.IntegrationTest<br>Test method: Test data consistency across services</td>
+<td><div><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.post(APIRequestContextImpl.java:212)
+	at base.RealServiceTestBase.writeNode(RealServiceTestBase.java:390)
+	at tests.IntegrationTest.testDataConsistencyAcrossServices(IntegrationTest.java:235)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 32 more
+... Removed 17 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1166926647", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1166926647'><pre>com.microsoft.playwright.PlaywrightException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:132)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetchImpl(APIRequestContextImpl.java:156)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.lambda$fetch$1(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:97)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.fetch(APIRequestContextImpl.java:68)
+	at com.microsoft.playwright.impl.APIRequestContextImpl.post(APIRequestContextImpl.java:212)
+	at base.RealServiceTestBase.writeNode(RealServiceTestBase.java:390)
+	at tests.IntegrationTest.testDataConsistencyAcrossServices(IntegrationTest.java:235)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:481)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:58)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message=&apos;connect ECONNREFUSED ::1:8085
+  name=&apos;Error
+  stack=&apos;Error: connect ECONNREFUSED ::1:8085
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1610:16)
+}
+Call log:
+-   - ? POST http://localhost:8085/write/api/write/write-node
+-     - user-agent: Playwright/1.49.0 (x64; windows 10.0) java/17
+-     - accept: */*
+-     - accept-encoding: gzip,deflate,br
+-     - Content-Type: application/json
+-     - content-length: 48
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:130)
+	... 32 more
+</pre></div></td>
+<td>0</td>
+<td>tests.IntegrationTest@37efd131</td></tr>
+<tr>
+<td title='tests.IntegrationTest.testServiceRecoveryAfterFailure()'><b>testServiceRecoveryAfterFailure</b><br>Test class: tests.IntegrationTest<br>Test method: Test service recovery after failure</td>
+<td><div><pre>java.lang.AssertionError: Service should recover within 3 attempts expected [true] but found [false]
+	at tests.IntegrationTest.testServiceRecoveryAfterFailure(IntegrationTest.java:290)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+... Removed 20 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1154229890", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1154229890'><pre>java.lang.AssertionError: Service should recover within 3 attempts expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertTrue(Assert.java:57)
+	at tests.IntegrationTest.testServiceRecoveryAfterFailure(IntegrationTest.java:290)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:481)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:58)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+</pre></div></td>
+<td>4</td>
+<td>tests.IntegrationTest@37efd131</td></tr>
 </table><p>
 <table width='100%' border='1' class='invocation-passed'>
 <tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
@@ -125,40 +752,10 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='tests.IntegrationTest.testDataConsistencyAcrossServices()'><b>testDataConsistencyAcrossServices</b><br>Test class: tests.IntegrationTest<br>Test method: Test data consistency across services</td>
-<td></td>
-<td>0</td>
-<td>tests.IntegrationTest@72437d8d</td></tr>
-<tr>
 <td title='tests.IntegrationTest.testCompleteDataFlow()'><b>testCompleteDataFlow</b><br>Test class: tests.IntegrationTest<br>Test method: Test complete data flow from OPC UA to Kafka</td>
 <td></td>
 <td>0</td>
-<td>tests.IntegrationTest@72437d8d</td></tr>
-<tr>
-<td title='tests.IntegrationTest.testConcurrentOperationsAcrossServices()'><b>testConcurrentOperationsAcrossServices</b><br>Test class: tests.IntegrationTest<br>Test method: Test concurrent operations across services</td>
-<td></td>
-<td>0</td>
-<td>tests.IntegrationTest@72437d8d</td></tr>
-<tr>
-<td title='tests.IntegrationTest.testReadWriteCycle()'><b>testReadWriteCycle</b><br>Test class: tests.IntegrationTest<br>Test method: Test read-write cycle</td>
-<td></td>
-<td>0</td>
-<td>tests.IntegrationTest@72437d8d</td></tr>
-<tr>
-<td title='tests.IntegrationTest.testServiceRecoveryAfterFailure()'><b>testServiceRecoveryAfterFailure</b><br>Test class: tests.IntegrationTest<br>Test method: Test service recovery after failure</td>
-<td></td>
-<td>0</td>
-<td>tests.IntegrationTest@72437d8d</td></tr>
-<tr>
-<td title='tests.IntegrationTest.testPerformanceUnderLoad()'><b>testPerformanceUnderLoad</b><br>Test class: tests.IntegrationTest<br>Test method: Test performance under load</td>
-<td></td>
-<td>0</td>
-<td>tests.IntegrationTest@72437d8d</td></tr>
-<tr>
-<td title='tests.IntegrationTest.testServiceDiscovery()'><b>testServiceDiscovery</b><br>Test class: tests.IntegrationTest<br>Test method: Test service discovery and health check</td>
-<td></td>
-<td>0</td>
-<td>tests.IntegrationTest@72437d8d</td></tr>
+<td>tests.IntegrationTest@37efd131</td></tr>
 </table><p>
 </body>
 </html>

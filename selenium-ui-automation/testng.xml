@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Selenium UI Automation Suite" verbose="1"
+	parallel="methods" thread-count="1">
+
+	<listeners>
+		<listener class-name="utils.TestListener" />
+	</listeners>
+
+	<test name="Master Product Variant Tests" preserve-order="true">
+		<classes>
+			<class name="tests.MasterProductVariantTest">
+				<methods>
+					<include name="testNavigateToMasterProductVariantDetails" />
+					<include name="testCreateButtonFunctionality" />
+					<include name="testSuccessfulProductVariantCreation" />
+					<include name="testProductVariantCodeValidation" />
+					<include name="testProductVariantNameValidation" />
+					<include name="testFormFieldsEnabled" />
+					<include name="testFormClearFunctionality" />
+					<include name="testCompleteWorkflow" />
+					<include name="testFormValidationWithInvalidData" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+
+	<!-- Smoke Test Suite -->
+	<test name="Smoke Tests" preserve-order="true">
+		<classes>
+			<class name="tests.MasterProductVariantTest">
+				<methods>
+					<include name="testNavigateToMasterProductVariantDetails" />
+					<include name="testCreateButtonFunctionality" />
+					<include name="testSuccessfulProductVariantCreation" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+
+	<!-- Regression Test Suite -->
+	<test name="Regression Tests" preserve-order="true">
+		<classes>
+			<class name="tests.MasterProductVariantTest">
+				<methods>
+					<include name="testNavigateToMasterProductVariantDetails" />
+					<include name="testCreateButtonFunctionality" />
+					<include name="testSuccessfulProductVariantCreation" />
+					<include name="testProductVariantCodeValidation" />
+					<include name="testProductVariantNameValidation" />
+					<include name="testFormFieldsEnabled" />
+					<include name="testFormClearFunctionality" />
+					<include name="testCompleteWorkflow" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+
+	<!-- Comprehensive Master Navigation Test Suite -->
+	<test name="Comprehensive Master Navigation Tests" preserve-order="true">
+		<classes>
+			<class name="tests.ComprehensiveMasterNavigationTest">
+				<methods>
+					<include name="testComprehensiveMasterNavigationAndAutomation" />
+					<include name="testQuickMasterPagesNavigation" />
+					<include name="testStatusChangeModalFunctionality" />
+					<include name="testMasterShiftsDetailsAutomation" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+
+</suite>
+

@@ -1,96 +1,89 @@
 package utils;
 
-import com.aventstack.extentreports.Status;
-import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.ITestContext;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import config.TestConfigManager;
 
 public class EnhancedTestListener implements ITestListener {
     
     @Override
-    public void onStart(ITestContext context) {
-        System.out.println("Starting test suite: " + context.getName());
-        EnhancedExtentManager.initializeReport();
-    }
-    
-    @Override
-    public void onFinish(ITestContext context) {
-        System.out.println("Finishing test suite: " + context.getName());
-        EnhancedExtentManager.createSummaryReport();
-        EnhancedExtentManager.flushReport();
-    }
-    
-    @Override
     public void onTestStart(ITestResult result) {
-        String testName = result.getMethod().getMethodName();
-        String description = result.getMethod().getDescription();
-        String className = result.getTestClass().getName();
+        System.out.println("Starting test: " + result.getMethod().getMethodName());
         
-        System.out.println("Starting test: " + testName);
-        
-        // Create ExtentTest with category based on class name
-        String category = extractCategoryFromClassName(className);
-        EnhancedExtentManager.createTest(testName, description, category, "API Test Framework");
+        // Create ExtentTest if ExtentReports is enabled
+        if (TestConfigManager.isExtentReportEnabled()) {
+            ExtentTest extentTest = ExtentManager.createTest(
+                result.getMethod().getMethodName(),
+                "Test: " + result.getMethod().getMethodName()
+            );
+            result.setAttribute("extentTest", extentTest);
+        }
     }
     
     @Override
     public void onTestSuccess(ITestResult result) {
-        String testName = result.getMethod().getMethodName();
-        long duration = result.getEndMillis() - result.getStartMillis();
+        System.out.println("Test passed: " + result.getMethod().getMethodName());
         
-        System.out.println("Test passed: " + testName + " (Duration: " + duration + "ms)");
-        EnhancedExtentManager.logPass(testName, "Test passed in " + duration + "ms");
+        if (TestConfigManager.isExtentReportEnabled()) {
+            ExtentTest extentTest = (ExtentTest) result.getAttribute("extentTest");
+            if (extentTest != null) {
+                extentTest.log(Status.PASS, "Test passed successfully");
+            }
+        }
     }
     
     @Override
     public void onTestFailure(ITestResult result) {
-        String testName = result.getMethod().getMethodName();
-        String errorMessage = result.getThrowable().getMessage();
-        long duration = result.getEndMillis() - result.getStartMillis();
-        
-        System.out.println("Test failed: " + testName + " (Duration: " + duration + "ms)");
-        System.out.println("Error: " + errorMessage);
-        
-        EnhancedExtentManager.logFail(testName, "Test failed in " + duration + "ms: " + errorMessage);
-        
-        // Add stack trace if available
+        System.out.println("Test failed: " + result.getMethod().getMethodName());
         if (result.getThrowable() != null) {
-            EnhancedExtentManager.logFail(testName, "Stack trace: " + 
-                java.util.Arrays.toString(result.getThrowable().getStackTrace()));
+            System.err.println("Failure reason: " + result.getThrowable().getMessage());
+        }
+        
+        if (TestConfigManager.isExtentReportEnabled()) {
+            ExtentTest extentTest = (ExtentTest) result.getAttribute("extentTest");
+            if (extentTest != null) {
+                extentTest.log(Status.FAIL, "Test failed: " + 
+                    (result.getThrowable() != null ? result.getThrowable().getMessage() : "Unknown error"));
+            }
         }
     }
     
     @Override
     public void onTestSkipped(ITestResult result) {
-        String testName = result.getMethod().getMethodName();
-        String skipReason = result.getSkipCausedBy().toString();
+        System.out.println("Test skipped: " + result.getMethod().getMethodName());
+        if (result.getSkipCausedBy() != null && result.getSkipCausedBy().size() > 0) {
+            System.out.println("Skip reason: " + result.getSkipCausedBy().toString());
+        }
         
-        System.out.println("Test skipped: " + testName + " - Reason: " + skipReason);
-        EnhancedExtentManager.logSkip(testName, "Test skipped: " + skipReason);
+        if (TestConfigManager.isExtentReportEnabled()) {
+            ExtentTest extentTest = (ExtentTest) result.getAttribute("extentTest");
+            if (extentTest != null) {
+                extentTest.log(Status.SKIP, "Test skipped: " + 
+                    (result.getSkipCausedBy() != null ? result.getSkipCausedBy().toString() : "No reason provided"));
+            }
+        }
     }
     
     @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-        String testName = result.getMethod().getMethodName();
-        System.out.println("Test failed but within success percentage: " + testName);
-        EnhancedExtentManager.logWarning(testName, "Test failed but within success percentage");
+    public void onStart(ITestContext context) {
+        System.out.println("Starting test suite: " + context.getName());
+        
+        // Initialize ExtentReports if enabled
+        if (TestConfigManager.isExtentReportEnabled()) {
+            ExtentManager.initializeReport();
+        }
     }
     
-    private String extractCategoryFromClassName(String className) {
-        if (className.contains("OpUaConnectionServiceTest")) {
-            return "OPC UA Connection";
-        } else if (className.contains("ReadDataServiceTest")) {
-            return "Read Data Service";
-        } else if (className.contains("WriteDataServiceTest")) {
-            return "Write Data Service";
-        } else if (className.contains("KafkaServiceTest")) {
-            return "Kafka Service";
-        } else if (className.contains("IntegrationTest")) {
-            return "Integration Testing";
-        } else if (className.contains("ApiTestExecutor")) {
-            return "Legacy API Tests";
-        } else {
-            return "General";
+    @Override
+    public void onFinish(ITestContext context) {
+        System.out.println("Finishing test suite: " + context.getName());
+        
+        // Flush ExtentReports if enabled
+        if (TestConfigManager.isExtentReportEnabled()) {
+            ExtentManager.flushReport();
         }
     }
 }
