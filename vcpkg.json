@@ -1,0 +1,10 @@
+{
+  "dependencies": [
+    "nlohmann-json",
+    "curl",
+    "spdlog",
+    "openssl",
+    "open62541pp",
+    "gtest"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "ip": "opc.tcp://192.168.103.24:4840",
+  "namespace": 3,
+  "plc_tag": "\"WMS_Signal_Generation\".\"CT150_OK\"",
+  "http_verb": "GET",
+  "api_request": "gamble",
+  "base_url": "http://172.26.123.175:8080/",
+  "api_key": "ApiKey",
+  "secret_key": "SecretKey",
+  "yokogawa_api_timeout_sec": 1,
+  "delay_ms": 1000
+}

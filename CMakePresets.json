@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "configurePresets": [
+    //{
+    //  "name": "vcpkg",
+    //  "generator": "Ninja",
+    //  "binaryDir": "${sourceDir}/build",
+    //  "cacheVariables": {
+    //    "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+    //  }
+    //}
+    {
+      "name": "vcpkg",
+      "displayName": "Vcpkg Release",
+      "description": "Release build using Vcpkg and Ninja",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/Release",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ]
+}
