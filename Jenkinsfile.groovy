@@ -112,41 +112,53 @@ pipeline {
             steps {
                 script {
                     echo "=========================================="
-                    echo "Running tests with CTest..."
+                    echo "Running tests..."
                     echo "=========================================="
                     
-                    // Run tests using CTest with specific test names
-                    def testNames = [
-                        'ConfigTest',
-                        'SecurityTest'
+                    // Run test executables directly (more reliable for Visual Studio multi-config)
+                    def tests = [
+                        [name: 'ConfigTest', exe: 'config_test.exe'],
+                        [name: 'SecurityTest', exe: 'security_test.exe']
                     ]
                     
                     def testResults = []
                     def testFailures = []
+                    def testBinDir = "${env.BUILD_DIR}\\${env.BUILD_TYPE}\\bin"
                     
-                    for (def testName : testNames) {
-                        echo "Running test: ${testName}"
+                    // Verify test executables exist
+                    for (def test : tests) {
+                        def testPath = "${testBinDir}\\${test.exe}"
+                        if (!fileExists(testPath)) {
+                            error("Test executable not found: ${testPath}")
+                        }
+                    }
+                    
+                    // Run each test
+                    for (def test : tests) {
+                        echo "Running test: ${test.name}"
                         try {
                             def result = bat(
                                 script: """
-                                    cd ${env.BUILD_DIR}
-                                    ctest -C ${env.BUILD_TYPE} -R "^${testName}\$" --output-on-failure
+                                    @echo off
+                                    cd /d ${testBinDir}
+                                    ${test.exe}
+                                    if errorlevel 1 exit /b 1
                                 """,
                                 returnStatus: true
                             )
                             
                             if (result == 0) {
-                                echo "✓ ${testName} PASSED"
-                                testResults.add("${testName}: PASSED")
+                                echo "✓ ${test.name} PASSED"
+                                testResults.add("${test.name}: PASSED")
                             } else {
-                                echo "✗ ${testName} FAILED"
-                                testFailures.add("${testName}: FAILED")
-                                testResults.add("${testName}: FAILED")
+                                echo "✗ ${test.name} FAILED (exit code: ${result})"
+                                testFailures.add("${test.name}: FAILED")
+                                testResults.add("${test.name}: FAILED")
                             }
                         } catch (Exception e) {
-                            echo "Error running ${testName}: ${e.getMessage()}"
-                            testFailures.add("${testName}: ERROR - ${e.getMessage()}")
-                            testResults.add("${testName}: ERROR")
+                            echo "Error running ${test.name}: ${e.getMessage()}"
+                            testFailures.add("${test.name}: ERROR - ${e.getMessage()}")
+                            testResults.add("${test.name}: ERROR")
                         }
                     }
                     
@@ -163,6 +175,8 @@ pipeline {
                     if (!testFailures.isEmpty()) {
                         error("Tests failed: ${testFailures.join(', ')}")
                     }
+                    
+                    echo "✓ All tests passed!"
                 }
             }
         }
