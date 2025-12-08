@@ -9,6 +9,11 @@ pipeline {
         VCPKG_ROOT = "${env.VCPKG_ROOT ?: 'C:\\vcpkg'}"
         BUILD_TYPE = "${env.BUILD_TYPE ?: 'Debug'}"
         BUILD_DIR = "build"
+        // Configure vcpkg to use a writable binary cache location for Jenkins
+        // This prevents issues when Jenkins runs as SYSTEM service which can't access
+        // C:\WINDOWS\system32\config\systemprofile\AppData\Local\vcpkg\archives
+        // Note: VCPKG_BINARY_SOURCES will be set dynamically in the Environment Setup stage
+        // since WORKSPACE is not available in the environment block
     }
     
     options {
@@ -33,6 +38,7 @@ pipeline {
                     echo "VCPKG_ROOT: ${env.VCPKG_ROOT}"
                     echo "BUILD_TYPE: ${env.BUILD_TYPE}"
                     echo "BUILD_DIR: ${env.BUILD_DIR}"
+                    echo "VCPKG_BINARY_SOURCES: ${env.VCPKG_BINARY_SOURCES}"
                     
                     // Verify vcpkg exists
                     def vcpkgToolchain = "${env.VCPKG_ROOT}\\scripts\\buildsystems\\vcpkg.cmake"
@@ -44,6 +50,20 @@ pipeline {
                     }
                     
                     echo "✓ vcpkg toolchain found: ${vcpkgToolchain}"
+                    
+                    // Create vcpkg archives directory in workspace for binary caching
+                    // This avoids issues with SYSTEM account AppData paths
+                    def vcpkgArchivesDir = "${env.WORKSPACE}\\vcpkg_archives"
+                    bat """
+                        @echo off
+                        if not exist "${vcpkgArchivesDir}" mkdir "${vcpkgArchivesDir}"
+                    """
+                    echo "✓ vcpkg archives directory configured: ${vcpkgArchivesDir}"
+                    
+                    // Set VCPKG_BINARY_SOURCES to use workspace directory for binary cache
+                    // This prevents vcpkg from trying to access inaccessible SYSTEM AppData paths
+                    env.VCPKG_BINARY_SOURCES = "clear;files,${vcpkgArchivesDir},readwrite"
+                    echo "VCPKG_BINARY_SOURCES configured: ${env.VCPKG_BINARY_SOURCES}"
                     
                     // Verify CMake is available
                     def cmakeCheck = bat(
