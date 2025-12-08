@@ -11,35 +11,32 @@ jobs:
     runs-on: windows-latest
     
     env:
-      VCPKG_ROOT: ${{ env.VCPKG_ROOT || 'C:\\vcpkg' }}
+      VCPKG_ROOT: C:\vcpkg
       BUILD_TYPE: Debug
       BUILD_DIR: build
+      VCPKG_ARCHIVES: ${{ github.workspace }}\vcpkg_archives
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Setup vcpkg
+    - name: Ensure vcpkg and binary cache directory
+      shell: pwsh
       run: |
         if (-not (Test-Path $env:VCPKG_ROOT)) {
           Write-Host "vcpkg not found at $env:VCPKG_ROOT"
-          Write-Host "Installing vcpkg..."
           git clone https://github.com/Microsoft/vcpkg.git $env:VCPKG_ROOT
           & "$env:VCPKG_ROOT\bootstrap-vcpkg.bat"
         }
+        if (-not (Test-Path $env:VCPKG_ARCHIVES)) {
+          New-Item -ItemType Directory -Path $env:VCPKG_ARCHIVES | Out-Null
+        }
+        $env:VCPKG_BINARY_SOURCES = "clear;files,$env:VCPKG_ARCHIVES,readwrite"
+        Write-Host "VCPKG_BINARY_SOURCES: $env:VCPKG_BINARY_SOURCES"
         & "$env:VCPKG_ROOT\vcpkg.exe" version
         
-    - name: Install dependencies
-      run: |
-        & "$env:VCPKG_ROOT\vcpkg.exe" install --triplet x64-windows `
-          nlohmann-json `
-          curl `
-          spdlog `
-          openssl `
-          open62541pp `
-          gtest
-        
     - name: Verify vcpkg toolchain
+      shell: pwsh
       run: |
         $vcpkgToolchain = "$env:VCPKG_ROOT\scripts\buildsystems\vcpkg.cmake"
         if (-not (Test-Path $vcpkgToolchain)) {
@@ -49,14 +46,19 @@ jobs:
         Write-Host "vcpkg toolchain found: $vcpkgToolchain"
         
     - name: Configure CMake
+      shell: pwsh
       run: |
         $vcpkgToolchain = "$env:VCPKG_ROOT\scripts\buildsystems\vcpkg.cmake"
+        $env:VCPKG_BINARY_SOURCES = "clear;files,$env:VCPKG_ARCHIVES,readwrite"
         cmake -B $env:BUILD_DIR `
           -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE `
+          -DBUILD_TESTING=ON `
+          -DVCPKG_BINARY_SOURCES="$env:VCPKG_BINARY_SOURCES" `
           -DCMAKE_TOOLCHAIN_FILE="$vcpkgToolchain" `
           -S .
           
     - name: Build project
+      shell: pwsh
       run: |
         cmake --build $env:BUILD_DIR `
           --config $env:BUILD_TYPE `
@@ -64,38 +66,11 @@ jobs:
           --parallel
           
     - name: Run tests
+      shell: pwsh
       run: |
-        cd $env:BUILD_DIR
-        $testNames = @('ConfigTest', 'SecurityTest')
-        $testFailures = @()
-        
-        foreach ($testName in $testNames) {
-          Write-Host "Running test: $testName"
-          $result = ctest -C $env:BUILD_TYPE -R "^$testName$" --output-on-failure
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "✗ $testName FAILED"
-            $testFailures += $testName
-          } else {
-            Write-Host "✓ $testName PASSED"
-          }
-        }
-        
-        Write-Host "=========================================="
-        Write-Host "Test Summary:"
-        Write-Host "=========================================="
-        foreach ($testName in $testNames) {
-          if ($testFailures -contains $testName) {
-            Write-Host "$testName : FAILED"
-          } else {
-            Write-Host "$testName : PASSED"
-          }
-        }
-        Write-Host "=========================================="
-        
-        if ($testFailures.Count -gt 0) {
-          Write-Error "Tests failed: $($testFailures -join ', ')"
-          exit 1
-        }
+        Push-Location $env:BUILD_DIR
+        ctest -C $env:BUILD_TYPE -V --output-on-failure --progress --test-output-size-passed 10000000
+        Pop-Location
         
     - name: Upload test artifacts
       if: always()
@@ -105,5 +80,11 @@ jobs:
         path: |
           ${{ env.BUILD_DIR }}/${{ env.BUILD_TYPE }}/bin/*test*.exe
         retention-days: 7
+
+
+
+
+
+
 
 
