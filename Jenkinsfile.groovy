@@ -131,7 +131,7 @@ pipeline {
                             def result = bat(
                                 script: """
                                     cd ${env.BUILD_DIR}
-                                    ctest -C ${env.BUILD_TYPE} -R "^${testName}$" --output-on-failure
+                                    ctest -C ${env.BUILD_TYPE} -R "^${testName}\$" --output-on-failure
                                 """,
                                 returnStatus: true
                             )
