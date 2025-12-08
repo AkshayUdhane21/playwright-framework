@@ -119,7 +119,6 @@ pipeline {
                         @echo off
                         cmake --build ${env.BUILD_DIR} ^
                             --config ${env.BUILD_TYPE} ^
-                            --target all ^
                             --parallel
                         if errorlevel 1 exit /b 1
                     """
