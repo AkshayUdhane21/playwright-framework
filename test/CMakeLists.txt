@@ -22,11 +22,11 @@ target_include_directories(config_test
         ${PROJECT_SOURCE_DIR}/include
 )
 # Register ConfigTest with CTest
-# For multi-config generators (like Visual Studio), use generator expression to specify the full path
+# For Visual Studio generators, use generator expression with CMAKE_CFG_INTDIR
+# This ensures the correct path is used for each configuration
 add_test(NAME ConfigTest COMMAND $<TARGET_FILE:config_test>)
-# Set working directory to where the executable is located (for test files access)
 set_tests_properties(ConfigTest PROPERTIES
-    WORKING_DIRECTORY $<TARGET_FILE_DIR:config_test>
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIG>/bin"
 )
 
 # Security tests

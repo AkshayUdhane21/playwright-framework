@@ -23,10 +23,10 @@ target_link_libraries(security_test
 )
 
 # Register test with CTest
-# For multi-config generators (like Visual Studio), use generator expression to specify the full path
+# For Visual Studio generators, use generator expression with CMAKE_CFG_INTDIR
+# This ensures the correct path is used for each configuration
 add_test(NAME SecurityTest COMMAND $<TARGET_FILE:security_test>)
-# Set working directory to where the executable is located
 set_tests_properties(SecurityTest PROPERTIES
-    WORKING_DIRECTORY $<TARGET_FILE_DIR:security_test>
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIG>/bin"
 )
 

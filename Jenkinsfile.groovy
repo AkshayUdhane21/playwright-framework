@@ -165,7 +165,7 @@ pipeline {
                     bat """
                         @echo off
                         cd /d ${env.BUILD_DIR}
-                        ctest -C ${env.BUILD_TYPE} --output-summary
+                        ctest -C ${env.BUILD_TYPE} -N
                     """
                     echo "=========================================="
                     echo "✓ All tests passed!"
