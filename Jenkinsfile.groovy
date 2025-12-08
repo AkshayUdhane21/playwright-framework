@@ -119,7 +119,7 @@ pipeline {
                         @echo off
                         cmake --build ${env.BUILD_DIR} ^
                             --config ${env.BUILD_TYPE} ^
-                            --target config_test security_test ^
+                            --target all ^
                             --parallel
                         if errorlevel 1 exit /b 1
                     """
@@ -132,71 +132,42 @@ pipeline {
             steps {
                 script {
                     echo "=========================================="
-                    echo "Running tests..."
+                    echo "Running tests with CTest..."
                     echo "=========================================="
                     
-                    // Run test executables directly (more reliable for Visual Studio multi-config)
-                    def tests = [
-                        [name: 'ConfigTest', exe: 'config_test.exe'],
-                        [name: 'SecurityTest', exe: 'security_test.exe']
-                    ]
+                    // Use CTest to run all registered tests
+                    // -C specifies the build configuration (Debug/Release)
+                    // -V enables verbose output to show gtest details
+                    // --output-on-failure shows output even for failed tests
+                    // --progress shows test progress  
+                    // --test-output-size-passed ensures we see full gtest output (even for passing tests)
+                    // -T Test runs tests and shows detailed output
+                    def ctestResult = bat(
+                        script: """
+                            @echo off
+                            cd /d ${env.BUILD_DIR}
+                            ctest -C ${env.BUILD_TYPE} -V --output-on-failure --progress --test-output-size-passed 10000000
+                            if errorlevel 1 exit /b 1
+                        """,
+                        returnStatus: true
+                    )
                     
-                    def testResults = []
-                    def testFailures = []
-                    def testBinDir = "${env.BUILD_DIR}\\${env.BUILD_TYPE}\\bin"
-                    
-                    // Verify test executables exist
-                    for (def test : tests) {
-                        def testPath = "${testBinDir}\\${test.exe}"
-                        if (!fileExists(testPath)) {
-                            error("Test executable not found: ${testPath}")
-                        }
+                    if (ctestResult != 0) {
+                        error("Tests failed! Check the output above for details.")
                     }
                     
-                    // Run each test
-                    for (def test : tests) {
-                        echo "Running test: ${test.name}"
-                        try {
-                            def result = bat(
-                                script: """
-                                    @echo off
-                                    cd /d ${testBinDir}
-                                    ${test.exe}
-                                    if errorlevel 1 exit /b 1
-                                """,
-                                returnStatus: true
-                            )
-                            
-                            if (result == 0) {
-                                echo "✓ ${test.name} PASSED"
-                                testResults.add("${test.name}: PASSED")
-                            } else {
-                                echo "✗ ${test.name} FAILED (exit code: ${result})"
-                                testFailures.add("${test.name}: FAILED")
-                                testResults.add("${test.name}: FAILED")
-                            }
-                        } catch (Exception e) {
-                            echo "Error running ${test.name}: ${e.getMessage()}"
-                            testFailures.add("${test.name}: ERROR - ${e.getMessage()}")
-                            testResults.add("${test.name}: ERROR")
-                        }
-                    }
-                    
-                    // Print summary
+                    // Show test summary
                     echo "=========================================="
                     echo "Test Summary:"
                     echo "=========================================="
-                    for (def result : testResults) {
-                        echo result
-                    }
+                    bat """
+                        @echo off
+                        cd /d ${env.BUILD_DIR}
+                        ctest -C ${env.BUILD_TYPE} --print-summary
+                    """
                     echo "=========================================="
-                    
-                    // Fail build if any tests failed
-                    if (!testFailures.isEmpty()) {
-                        error("Tests failed: ${testFailures.join(', ')}")
-                    }
-                    
                     echo "✓ All tests passed!"
+                    echo "=========================================="
                 }
             }
         }
