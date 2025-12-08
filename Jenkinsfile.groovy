@@ -99,6 +99,7 @@ pipeline {
                         @echo off
                         cmake -B ${env.BUILD_DIR} ^
                             -DCMAKE_BUILD_TYPE=${env.BUILD_TYPE} ^
+                            -DBUILD_TESTING=ON ^
                             -DCMAKE_TOOLCHAIN_FILE="${vcpkgToolchain}" ^
                             -S .
                         if errorlevel 1 exit /b 1

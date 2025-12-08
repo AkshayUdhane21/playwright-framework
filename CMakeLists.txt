@@ -19,7 +19,6 @@ find_package(CURL CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 find_package(openssl CONFIG REQUIRED)
-find_package(open62541pp CONFIG REQUIRED)
 find_package(gtest CONFIG REQUIRED)
 
 add_subdirectory(src)
