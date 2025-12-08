@@ -23,6 +23,10 @@ target_link_libraries(security_test
 )
 
 # Register test with CTest
-# For multi-config generators, CTest will find the executable in the correct config directory
-add_test(NAME SecurityTest COMMAND security_test)
+# For multi-config generators (like Visual Studio), use generator expression to specify the full path
+add_test(NAME SecurityTest COMMAND $<TARGET_FILE:security_test>)
+# Set working directory to where the executable is located
+set_tests_properties(SecurityTest PROPERTIES
+    WORKING_DIRECTORY $<TARGET_FILE_DIR:security_test>
+)
 

@@ -22,8 +22,12 @@ target_include_directories(config_test
         ${PROJECT_SOURCE_DIR}/include
 )
 # Register ConfigTest with CTest
-# For multi-config generators, CTest will find the executable in the correct config directory
-add_test(NAME ConfigTest COMMAND config_test)
+# For multi-config generators (like Visual Studio), use generator expression to specify the full path
+add_test(NAME ConfigTest COMMAND $<TARGET_FILE:config_test>)
+# Set working directory to where the executable is located (for test files access)
+set_tests_properties(ConfigTest PROPERTIES
+    WORKING_DIRECTORY $<TARGET_FILE_DIR:config_test>
+)
 
 # Security tests
 add_subdirectory(security_test)
