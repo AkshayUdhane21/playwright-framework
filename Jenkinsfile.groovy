@@ -5,10 +5,12 @@ pipeline {
     agent any
     
     environment {
-        // vcpkg root - adjust if your vcpkg is installed elsewhere
-        VCPKG_ROOT = "${env.VCPKG_ROOT ?: 'C:\\vcpkg'}"
-        BUILD_TYPE = "${env.BUILD_TYPE ?: 'Debug'}"
+        BUILD_TYPE = "${env.BUILD_TYPE ?: 'Release'}"
         BUILD_DIR = "build"
+        // Deployment configuration
+        DEPLOY_ENVIRONMENT = "${env.DEPLOY_ENVIRONMENT ?: 'dev'}"
+        DEPLOY_PATH = "${env.DEPLOY_PATH ?: 'C:\\Services\\Yokogawa'}"
+        SERVICE_NAME = "AtsYokogawaConnectionService"
         // Configure vcpkg to use a writable binary cache location for Jenkins
         // This prevents issues when Jenkins runs as SYSTEM service which can't access
         // C:\WINDOWS\system32\config\systemprofile\AppData\Local\vcpkg\archives
@@ -35,35 +37,8 @@ pipeline {
                     echo "=========================================="
                     echo "Setting up environment..."
                     echo "=========================================="
-                    echo "VCPKG_ROOT: ${env.VCPKG_ROOT}"
                     echo "BUILD_TYPE: ${env.BUILD_TYPE}"
                     echo "BUILD_DIR: ${env.BUILD_DIR}"
-                    echo "VCPKG_BINARY_SOURCES: ${env.VCPKG_BINARY_SOURCES}"
-                    
-                    // Verify vcpkg exists
-                    def vcpkgToolchain = "${env.VCPKG_ROOT}\\scripts\\buildsystems\\vcpkg.cmake"
-                    def vcpkgExists = fileExists(vcpkgToolchain)
-                    
-                    if (!vcpkgExists) {
-                        error("vcpkg toolchain file not found at: ${vcpkgToolchain}\n" +
-                              "Please ensure vcpkg is installed and VCPKG_ROOT is set correctly.")
-                    }
-                    
-                    echo "✓ vcpkg toolchain found: ${vcpkgToolchain}"
-                    
-                    // Create vcpkg archives directory in workspace for binary caching
-                    // This avoids issues with SYSTEM account AppData paths
-                    def vcpkgArchivesDir = "${env.WORKSPACE}\\vcpkg_archives"
-                    bat """
-                        @echo off
-                        if not exist "${vcpkgArchivesDir}" mkdir "${vcpkgArchivesDir}"
-                    """
-                    echo "✓ vcpkg archives directory configured: ${vcpkgArchivesDir}"
-                    
-                    // Set VCPKG_BINARY_SOURCES to use workspace directory for binary cache
-                    // This prevents vcpkg from trying to access inaccessible SYSTEM AppData paths
-                    env.VCPKG_BINARY_SOURCES = "clear;files,${vcpkgArchivesDir},readwrite"
-                    echo "VCPKG_BINARY_SOURCES configured: ${env.VCPKG_BINARY_SOURCES}"
                     
                     // Verify CMake is available
                     def cmakeCheck = bat(
@@ -85,10 +60,8 @@ pipeline {
             steps {
                 script {
                     echo "=========================================="
-                    echo "Configuring CMake with vcpkg..."
+                    echo "Configuring CMake..."
                     echo "=========================================="
-                    def vcpkgToolchain = "${env.VCPKG_ROOT}\\scripts\\buildsystems\\vcpkg.cmake"
-                    
                     // Clean previous build if it exists (optional)
                     if (fileExists("${env.BUILD_DIR}")) {
                         echo "Cleaning previous build directory..."
@@ -100,7 +73,6 @@ pipeline {
                         cmake -B ${env.BUILD_DIR} ^
                             -DCMAKE_BUILD_TYPE=${env.BUILD_TYPE} ^
                             -DBUILD_TESTING=ON ^
-                            -DCMAKE_TOOLCHAIN_FILE="${vcpkgToolchain}" ^
                             -S .
                         if errorlevel 1 exit /b 1
                     """
@@ -114,19 +86,25 @@ pipeline {
             steps {
                 script {
                     echo "=========================================="
-                    echo "Building project and tests..."
+                    echo "Building project, service, and tests..."
                     echo "=========================================="
-                    // Build test executables and their dependencies
-                    // Note: Building only test targets to avoid main app compilation issues
+                    // Build service executable, test executables and their dependencies
                     bat """
                         @echo off
                         cmake --build ${env.BUILD_DIR} ^
                             --config ${env.BUILD_TYPE} ^
-                            --target config_test security_test ^
+                            --target ${env.SERVICE_NAME} config_test security_test ^
                             --parallel
                         if errorlevel 1 exit /b 1
                     """
                     echo "✓ Build completed successfully"
+                    
+                    // Verify service executable was built
+                    def serviceExe = "${env.BUILD_DIR}\\${env.BUILD_TYPE}\\bin\\${env.SERVICE_NAME}.exe"
+                    if (!fileExists(serviceExe)) {
+                        error("Service executable not found at: ${serviceExe}\nBuild may have failed.")
+                    }
+                    echo "✓ Service executable verified: ${serviceExe}"
                 }
             }
         }
@@ -174,13 +152,68 @@ pipeline {
                 }
             }
         }
+        
+        stage('Deploy') {
+            when {
+                // Only deploy if tests passed and deployment is enabled
+                expression { 
+                    return env.DEPLOY_ENVIRONMENT != null && env.DEPLOY_ENVIRONMENT != 'none'
+                }
+            }
+            steps {
+                script {
+                    echo "=========================================="
+                    echo "Deploying service to ${env.DEPLOY_ENVIRONMENT}..."
+                    echo "=========================================="
+                    
+                    // Determine source paths based on build type
+                    def sourceBinPath = "${env.BUILD_DIR}\\${env.BUILD_TYPE}\\bin"
+                    def sourceConfigPath = "${env.WORKSPACE}\\config.json"
+                    
+                    // Verify source files exist
+                    def serviceExe = "${sourceBinPath}\\${env.SERVICE_NAME}.exe"
+                    if (!fileExists(serviceExe)) {
+                        error("Service executable not found at: ${serviceExe}")
+                    }
+                    
+                    echo "Source Bin Path: ${sourceBinPath}"
+                    echo "Source Config Path: ${sourceConfigPath}"
+                    echo "Deploy Path: ${env.DEPLOY_PATH}"
+                    echo "Environment: ${env.DEPLOY_ENVIRONMENT}"
+                    
+                    // Run deployment script
+                    def deployScript = "${env.WORKSPACE}\\powershell_scripts\\deploy.ps1"
+                    if (!fileExists(deployScript)) {
+                        error("Deployment script not found at: ${deployScript}")
+                    }
+                    
+                    bat """
+                        @echo off
+                        powershell.exe -ExecutionPolicy Bypass -File "${deployScript}" ^
+                            -DeployPath "${env.DEPLOY_PATH}" ^
+                            -Environment "${env.DEPLOY_ENVIRONMENT}" ^
+                            -ServiceName "${env.SERVICE_NAME}" ^
+                            -SourceBinPath "${sourceBinPath}" ^
+                            -SourceConfigPath "${sourceConfigPath}"
+                        if errorlevel 1 exit /b 1
+                    """
+                    
+                    echo "=========================================="
+                    echo "✓ Deployment completed successfully!"
+                    echo "=========================================="
+                    echo "Service deployed to: ${env.DEPLOY_PATH}"
+                    echo "Service name: ${env.SERVICE_NAME}"
+                    echo "Environment: ${env.DEPLOY_ENVIRONMENT}"
+                }
+            }
+        }
     }
     
     post {
         always {
             echo "Pipeline completed"
-            // Archive test results if needed
-            archiveArtifacts artifacts: "${env.BUILD_DIR}\\${env.BUILD_TYPE}\\bin\\*test*.exe", allowEmptyArchive: true
+            // Archive test results and service executable
+            archiveArtifacts artifacts: "${env.BUILD_DIR}\\${env.BUILD_TYPE}\\bin\\*.exe", allowEmptyArchive: true
         }
         success {
             echo "✓ All stages completed successfully!"
