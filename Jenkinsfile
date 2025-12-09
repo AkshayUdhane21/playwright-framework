@@ -2,8 +2,6 @@ pipeline {
     agent any
     
     environment {
-        // vcpkg root - adjust if your vcpkg is installed elsewhere
-        VCPKG_ROOT = "${env.VCPKG_ROOT ?: 'C:\\vcpkg'}"
         BUILD_TYPE = "${env.BUILD_TYPE ?: 'Debug'}"
         BUILD_DIR = "build"
     }
@@ -26,18 +24,8 @@ pipeline {
             steps {
                 script {
                     echo "Setting up environment..."
-                    echo "VCPKG_ROOT: ${env.VCPKG_ROOT}"
                     echo "BUILD_TYPE: ${env.BUILD_TYPE}"
-                    
-                    // Verify vcpkg exists
-                    def vcpkgToolchain = "${env.VCPKG_ROOT}\\scripts\\buildsystems\\vcpkg.cmake"
-                    def vcpkgExists = fileExists(vcpkgToolchain)
-                    
-                    if (!vcpkgExists) {
-                        error("vcpkg toolchain file not found at: ${vcpkgToolchain}")
-                    }
-                    
-                    echo "vcpkg toolchain found: ${vcpkgToolchain}"
+                    echo "BUILD_DIR: ${env.BUILD_DIR}"
                 }
             }
         }
@@ -45,14 +33,11 @@ pipeline {
         stage('Configure CMake') {
             steps {
                 script {
-                    echo "Configuring CMake with vcpkg..."
-                    def vcpkgToolchain = "${env.VCPKG_ROOT}\\scripts\\buildsystems\\vcpkg.cmake"
-                    
+                    echo "Configuring CMake..."
                     bat """
                         cmake -B ${env.BUILD_DIR} ^
                             -DCMAKE_BUILD_TYPE=${env.BUILD_TYPE} ^
                             -DBUILD_TESTING=ON ^
-                            -DCMAKE_TOOLCHAIN_FILE="${vcpkgToolchain}" ^
                             -S .
                     """
                 }
