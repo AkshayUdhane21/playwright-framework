@@ -3,6 +3,15 @@
 #include "config/config.hpp"
 #include <exception>
 #include <memory>
+
+// On Windows, <windows.h> may define min/max macros that break std::min/std::max
+#if defined(min)
+#undef min
+#endif
+#if defined(max)
+#undef max
+#endif
+
 #include <open62541pp/open62541pp.hpp>
 
 class SetupError : std::exception {

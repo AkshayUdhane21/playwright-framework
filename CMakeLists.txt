@@ -15,6 +15,11 @@ foreach(OUTPUTCONFIG Debug Release RelWithDebInfo MinSizeRel Test)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UP} ${CMAKE_BINARY_DIR}/${OUTPUTCONFIG}/lib)
 endforeach()
 
+# On Windows, prevent <windows.h> from defining min/max macros that break std::min/std::max
+if (MSVC)
+    add_compile_definitions(NOMINMAX)
+endif()
+
 include(CTest)
 enable_testing()
 
