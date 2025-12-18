@@ -2,9 +2,9 @@ name: CI Build, Test, and SonarQube Analysis
 
 on:
   push:
-    branches: [ main, master, develop ]
+    branches: [ main, master, develop, akshay ]
   pull_request:
-    branches: [ main, master, develop ]
+    branches: [ main, master, develop, akshay ]
   workflow_dispatch:
 
 env:
