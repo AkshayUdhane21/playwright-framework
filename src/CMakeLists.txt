@@ -2,24 +2,29 @@ add_subdirectory(curl_handler)
 add_subdirectory(config)
 add_subdirectory(security)
 
-add_executable(AtsYokogawaConnectionService
-    application/application.cpp
-    main_service.cpp)
+# Windows Service executable (uses WinAPI via windows.h) – build only on Windows
+if (WIN32)
+    add_executable(AtsYokogawaConnectionService
+        application/application.cpp
+        main_service.cpp
+    )
 
-target_link_libraries(AtsYokogawaConnectionService
-    PUBLIC
-        curl_handler_lib
-        config_lib
-        security_lib
-        open62541pp::open62541pp
-)
+    target_link_libraries(AtsYokogawaConnectionService
+        PUBLIC
+            curl_handler_lib
+            config_lib
+            security_lib
+            open62541pp::open62541pp
+    )
 
-target_compile_features(AtsYokogawaConnectionService PRIVATE cxx_std_20)
+    target_compile_features(AtsYokogawaConnectionService PRIVATE cxx_std_20)
+endif()
 
 # Console executable for running the service without Windows Service Manager.
 # This is the target used inside the Docker image (Linux-friendly, no WinAPI).
 add_executable(yokogawa_console
     main.cpp
+    application/application.cpp
 )
 
 target_link_libraries(yokogawa_console
