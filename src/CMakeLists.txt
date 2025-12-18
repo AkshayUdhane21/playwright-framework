@@ -15,6 +15,22 @@ target_link_libraries(AtsYokogawaConnectionService
 )
 
 target_compile_features(AtsYokogawaConnectionService PRIVATE cxx_std_20)
+
+# Console executable for running the service without Windows Service Manager.
+# This is the target used inside the Docker image (Linux-friendly, no WinAPI).
+add_executable(yokogawa_console
+    main.cpp
+)
+
+target_link_libraries(yokogawa_console
+    PUBLIC
+        curl_handler_lib
+        config_lib
+        security_lib
+        open62541pp::open62541pp
+)
+
+target_compile_features(yokogawa_console PRIVATE cxx_std_20)
 ###
 #if(MSVC)
     # Force /clr

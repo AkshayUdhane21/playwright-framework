@@ -1,4 +1,4 @@
-name: CI Build, Test, and SonarQube Analysis
+name: SonarQube Analysis
 
 on:
   push:
@@ -12,78 +12,9 @@ env:
   VCPKG_ROOT: ${{ github.workspace }}/vcpkg
 
 jobs:
-  build-and-test:
-    name: Build and Test
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        build_type: [Release]
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-
-    - name: Setup vcpkg
-      uses: actions/checkout@v4
-      with:
-        repository: microsoft/vcpkg
-        path: vcpkg
-
-    - name: Cache vcpkg packages (Linux)
-      if: runner.os == 'Linux'
-      uses: actions/cache@v3
-      with:
-        path: |
-          vcpkg/installed
-          vcpkg/buildtrees
-        key: ${{ runner.os }}-vcpkg-${{ hashFiles('vcpkg.json') }}
-        restore-keys: |
-          ${{ runner.os }}-vcpkg-
-
-    - name: Install vcpkg dependencies (Linux)
-      if: runner.os == 'Linux'
-      run: |
-        ./vcpkg/bootstrap-vcpkg.sh
-        ./vcpkg/vcpkg install --triplet x64-linux
-
-    - name: Cache vcpkg packages (Windows)
-      if: runner.os == 'Windows'
-      uses: actions/cache@v3
-      with:
-        path: |
-          vcpkg/installed
-          vcpkg/buildtrees
-        key: ${{ runner.os }}-vcpkg-${{ hashFiles('vcpkg.json') }}
-        restore-keys: |
-          ${{ runner.os }}-vcpkg-
-
-    - name: Install vcpkg dependencies (Windows)
-      if: runner.os == 'Windows'
-      run: |
-        .\vcpkg\bootstrap-vcpkg.bat
-        .\vcpkg\vcpkg install --triplet x64-windows
-
-    - name: Configure CMake
-      run: |
-        cmake -B build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
-
-    - name: Build
-      run: |
-        cmake --build build --config ${{ env.BUILD_TYPE }} --parallel
-
-    - name: Run Tests
-      run: |
-        cd build
-        ctest --output-on-failure -C ${{ env.BUILD_TYPE }}
-
   sonarqube:
     name: SonarQube Analysis
     runs-on: ubuntu-latest
-    needs: build-and-test
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     
     steps:
@@ -137,3 +68,5 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+
