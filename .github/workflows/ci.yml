@@ -33,41 +33,17 @@ jobs:
         repository: microsoft/vcpkg
         path: vcpkg
 
-    - name: Cache vcpkg packages (Linux)
-      if: runner.os == 'Linux'
-      uses: actions/cache@v3
-      with:
-        path: |
-          vcpkg/installed
-          vcpkg/buildtrees
-        key: ${{ runner.os }}-vcpkg-${{ hashFiles('vcpkg.json') }}
-        restore-keys: |
-          ${{ runner.os }}-vcpkg-
-
-    - name: Install vcpkg dependencies (Linux)
+    - name: Bootstrap vcpkg (Linux)
       if: runner.os == 'Linux'
       run: |
         ./vcpkg/bootstrap-vcpkg.sh
-        ./vcpkg/vcpkg install --triplet x64-linux
 
-    - name: Cache vcpkg packages (Windows)
-      if: runner.os == 'Windows'
-      uses: actions/cache@v3
-      with:
-        path: |
-          vcpkg/installed
-          vcpkg/buildtrees
-        key: ${{ runner.os }}-vcpkg-${{ hashFiles('vcpkg.json') }}
-        restore-keys: |
-          ${{ runner.os }}-vcpkg-
-
-    - name: Install vcpkg dependencies (Windows)
+    - name: Bootstrap vcpkg (Windows)
       if: runner.os == 'Windows'
       run: |
         .\vcpkg\bootstrap-vcpkg.bat
-        .\vcpkg\vcpkg install --triplet x64-windows
 
-    - name: Configure CMake
+    - name: Configure CMake (installs vcpkg dependencies automatically via manifest)
       run: |
         cmake -B build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
 
@@ -76,8 +52,8 @@ jobs:
         cmake --build build --config ${{ env.BUILD_TYPE }} --parallel
 
     - name: Run Tests
+      working-directory: build
       run: |
-        cd build
         ctest --output-on-failure -C ${{ env.BUILD_TYPE }}
 
   sonarqube:
@@ -98,20 +74,9 @@ jobs:
         repository: microsoft/vcpkg
         path: vcpkg
 
-    - name: Cache vcpkg packages
-      uses: actions/cache@v3
-      with:
-        path: |
-          vcpkg/installed
-          vcpkg/buildtrees
-        key: linux-vcpkg-${{ hashFiles('vcpkg.json') }}
-        restore-keys: |
-          linux-vcpkg-
-
-    - name: Install vcpkg dependencies
+    - name: Bootstrap vcpkg
       run: |
         ./vcpkg/bootstrap-vcpkg.sh
-        ./vcpkg/vcpkg install --triplet x64-linux
 
     - name: Download SonarQube Build Wrapper
       run: |

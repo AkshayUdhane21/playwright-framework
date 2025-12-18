@@ -29,20 +29,9 @@ jobs:
         repository: microsoft/vcpkg
         path: vcpkg
 
-    - name: Cache vcpkg packages
-      uses: actions/cache@v3
-      with:
-        path: |
-          vcpkg/installed
-          vcpkg/buildtrees
-        key: linux-vcpkg-${{ hashFiles('vcpkg.json') }}
-        restore-keys: |
-          linux-vcpkg-
-
-    - name: Install vcpkg dependencies
+    - name: Bootstrap vcpkg
       run: |
         ./vcpkg/bootstrap-vcpkg.sh
-        ./vcpkg/vcpkg install --triplet x64-linux
 
     - name: Download SonarQube Build Wrapper
       run: |
@@ -59,8 +48,8 @@ jobs:
         ./build-wrapper/build-wrapper-linux-x86-64 --out-dir bw-output bash -c "cmake --build build --config Release -j$(nproc)"
 
     - name: Run Tests
+      working-directory: build
       run: |
-        cd build
         ctest --output-on-failure -C Release
 
     - name: SonarQube Scan
