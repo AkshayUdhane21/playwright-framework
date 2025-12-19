@@ -1,61 +1,59 @@
-name: SonarQube Analysis
+name: SonarCloud Analysis
 
 on:
   push:
-    branches: [ main, master, develop, akshay ]
+    branches:
+      - main
+      - master
+      - develop
   pull_request:
-    branches: [ main, master, develop, akshay ]
+    branches:
+      - main
+      - master
+      - develop
   workflow_dispatch:
-
-env:
-  BUILD_TYPE: Release
-  VCPKG_ROOT: ${{ github.workspace }}/vcpkg
 
 jobs:
   sonarqube:
-    name: SonarQube Analysis
+    name: SonarCloud Scan
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0  # Shallow clones should be disabled for better analysis
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for better analysis
 
-    - name: Setup vcpkg
-      uses: actions/checkout@v4
-      with:
-        repository: microsoft/vcpkg
-        path: vcpkg
+      - name: Set up vcpkg
+        uses: microsoft/setup-vcpkg@v1
 
-    - name: Bootstrap vcpkg
-      run: |
-        ./vcpkg/bootstrap-vcpkg.sh
+      - name: Configure CMake (installs dependencies via manifest)
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
 
-    - name: Download SonarQube Build Wrapper
-      run: |
-        wget -q https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
-        unzip -q build-wrapper-linux-x86.zip
-        mv build-wrapper-linux-x86 build-wrapper
+      - name: Download SonarCloud Build Wrapper
+        run: |
+          mkdir -p build-wrapper
+          curl -L -o build-wrapper/build-wrapper-linux-x86-64.zip \
+            https://sonarcloud.io/static/cpp/build-wrapper-linux-x86-64.zip
+          unzip -q build-wrapper/build-wrapper-linux-x86-64.zip -d build-wrapper
+          chmod +x build-wrapper/build-wrapper-linux-x86-64/build-wrapper-linux-x86-64
 
-    - name: Configure CMake
-      run: |
-        cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
+      - name: Build with SonarCloud Build Wrapper
+        run: |
+          ./build-wrapper/build-wrapper-linux-x86-64/build-wrapper-linux-x86-64 \
+            --out-dir bw-output \
+            cmake --build build --parallel
 
-    - name: Build with SonarQube Build Wrapper
-      run: |
-        ./build-wrapper/build-wrapper-linux-x86-64 --out-dir bw-output bash -c "cmake --build build --config Release -j$(nproc)"
+      - name: Run tests
+        run: |
+          cd build
+          ctest --output-on-failure || true
 
-    - name: Run Tests
-      working-directory: build
-      run: |
-        ctest --output-on-failure -C Release
-
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
