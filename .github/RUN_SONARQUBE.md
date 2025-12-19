@@ -95,3 +95,9 @@ Both workflows support `workflow_dispatch`, so you can trigger them manually:
 - Click "Run workflow"
 - Select branch and click "Run workflow"
 
+
+
+
+
+
+

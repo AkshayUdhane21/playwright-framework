@@ -1,0 +1,14 @@
+{"timestamp":"2025-12-19T10:41:14.583Z","level":"info","thread":22252,"msg":"Loading config: C:\Users\akshayu\Downloads\youkugawaheartbeat-master\youkugawaheartbeat-master\config.json"}
+{"timestamp":"2025-12-19T10:41:14.584Z","level":"info","thread":22252,"msg":"Yokogawa heartbeat service started successfully"}
+{"timestamp":"2025-12-19T10:41:14.601Z","level":"info","thread":22252,"msg":"OPC-UA Node selected: "ns=3;s=\"WMS_Signal_Generation\".\"CT150_OK\"""}
+{"timestamp":"2025-12-19T10:41:14.601Z","level":"info","thread":22252,"msg":"Attempting connection to PLC at opc.tcp://192.168.103.24:4840"}
+{"timestamp":"2025-12-19T10:41:19.604Z","level":"critical","thread":22252,"msg":"OPC-UA connection error (Status: BadTimeout)"}
+{"timestamp":"2025-12-19T10:41:19.604Z","level":"warning","thread":22252,"msg":"OPC-UA connection retry scheduled. Retrying in 1s (attempt 1/4)"}
+{"timestamp":"2025-12-19T10:41:25.622Z","level":"critical","thread":22252,"msg":"OPC-UA connection error (Status: BadTimeout)"}
+{"timestamp":"2025-12-19T10:41:25.622Z","level":"warning","thread":22252,"msg":"OPC-UA connection retry scheduled. Retrying in 2s (attempt 2/4)"}
+{"timestamp":"2025-12-19T10:41:32.645Z","level":"critical","thread":22252,"msg":"OPC-UA connection error (Status: BadTimeout)"}
+{"timestamp":"2025-12-19T10:41:32.645Z","level":"warning","thread":22252,"msg":"OPC-UA connection retry scheduled. Retrying in 4s (attempt 3/4)"}
+{"timestamp":"2025-12-19T10:41:41.654Z","level":"critical","thread":22252,"msg":"OPC-UA connection error (Status: BadTimeout)"}
+{"timestamp":"2025-12-19T10:41:41.654Z","level":"warning","thread":22252,"msg":"OPC-UA connection retry scheduled. Retrying in 8s (attempt 4/4)"}
+{"timestamp":"2025-12-19T10:41:49.670Z","level":"error","thread":22252,"msg":"Unable to establish initial connection to PLC. Service shutting down"}
+{"timestamp":"2025-12-19T10:41:49.671Z","level":"info","thread":22252,"msg":"Exiting the service"}
