@@ -40,30 +40,12 @@ jobs:
           VCPKG_ROOT="${{ github.workspace }}/vcpkg"
           cmake -B build -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_TOOLCHAIN_FILE="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-
-      - name: Download SonarCloud Build Wrapper
+      # Note: CFamily build-wrapper is disabled (URLs return 404 / not available).
+      # We just build normally and let SonarCloud run without C++ compilation data.
+      - name: Build (Release)
+        shell: bash
         run: |
-          mkdir -p build-wrapper
-          # Try GitHub releases first (more reliable)
-          if ! curl -L -f -o build-wrapper/build-wrapper-linux-x86-64.zip \
-            https://github.com/SonarSource/build-wrapper/releases/download/6.0.0.23903/build-wrapper-linux-x86-64.zip; then
-            echo "GitHub download failed, trying SonarCloud..."
-            curl -L -f -o build-wrapper/build-wrapper-linux-x86-64.zip \
-              https://sonarcloud.io/static/cpp/build-wrapper-linux-x86-64.zip
-          fi
-          # Verify the file was downloaded correctly
-          if [ ! -f build-wrapper/build-wrapper-linux-x86-64.zip ] || [ ! -s build-wrapper/build-wrapper-linux-x86-64.zip ]; then
-            echo "Error: Build wrapper download failed"
-            exit 1
-          fi
-          unzip -q build-wrapper/build-wrapper-linux-x86-64.zip -d build-wrapper
-          chmod +x build-wrapper/build-wrapper-linux-x86-64/build-wrapper-linux-x86-64
-
-      - name: Build with SonarCloud Build Wrapper
-        run: |
-          ./build-wrapper/build-wrapper-linux-x86-64/build-wrapper-linux-x86-64 \
-            --out-dir bw-output \
-            cmake --build build --parallel
+          cmake --build build --config Release --parallel
 
       - name: Run tests
         run: |
