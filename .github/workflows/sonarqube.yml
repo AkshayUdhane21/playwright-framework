@@ -24,13 +24,20 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for better analysis
 
-      - name: Set up vcpkg
-        uses: microsoft/setup-vcpkg@v1
+      - name: Setup vcpkg
+        uses: actions/checkout@v4
+        with:
+          repository: microsoft/vcpkg
+          path: vcpkg
+
+      - name: Bootstrap vcpkg
+        run: |
+          ./vcpkg/bootstrap-vcpkg.sh
 
       - name: Configure CMake (installs dependencies via manifest)
         run: |
           cmake -B build -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
+            -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
 
       - name: Download SonarCloud Build Wrapper
         run: |
