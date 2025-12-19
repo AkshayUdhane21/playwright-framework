@@ -44,8 +44,18 @@ jobs:
       - name: Download SonarCloud Build Wrapper
         run: |
           mkdir -p build-wrapper
-          curl -L -o build-wrapper/build-wrapper-linux-x86-64.zip \
-            https://sonarcloud.io/static/cpp/build-wrapper-linux-x86-64.zip
+          # Try GitHub releases first (more reliable)
+          if ! curl -L -f -o build-wrapper/build-wrapper-linux-x86-64.zip \
+            https://github.com/SonarSource/build-wrapper/releases/download/6.0.0.23903/build-wrapper-linux-x86-64.zip; then
+            echo "GitHub download failed, trying SonarCloud..."
+            curl -L -f -o build-wrapper/build-wrapper-linux-x86-64.zip \
+              https://sonarcloud.io/static/cpp/build-wrapper-linux-x86-64.zip
+          fi
+          # Verify the file was downloaded correctly
+          if [ ! -f build-wrapper/build-wrapper-linux-x86-64.zip ] || [ ! -s build-wrapper/build-wrapper-linux-x86-64.zip ]; then
+            echo "Error: Build wrapper download failed"
+            exit 1
+          fi
           unzip -q build-wrapper/build-wrapper-linux-x86-64.zip -d build-wrapper
           chmod +x build-wrapper/build-wrapper-linux-x86-64/build-wrapper-linux-x86-64
 
