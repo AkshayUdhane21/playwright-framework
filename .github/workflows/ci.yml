@@ -43,11 +43,13 @@ jobs:
         .\vcpkg\bootstrap-vcpkg.bat
 
     - name: Configure CMake (installs vcpkg dependencies automatically via manifest)
+      shell: bash
       run: |
         cmake -B build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} \
           -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
 
     - name: Build
+      shell: bash
       run: |
         cmake --build build --config ${{ env.BUILD_TYPE }} --parallel
 
@@ -78,6 +80,7 @@ jobs:
         ./vcpkg/bootstrap-vcpkg.sh
 
     - name: Configure CMake (installs dependencies via manifest)
+      shell: bash
       run: |
         cmake -B build -DCMAKE_BUILD_TYPE=Release \
           -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake

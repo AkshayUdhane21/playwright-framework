@@ -35,6 +35,7 @@ jobs:
           ./vcpkg/bootstrap-vcpkg.sh
 
       - name: Configure CMake (installs dependencies via manifest)
+        shell: bash
         run: |
           cmake -B build -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
