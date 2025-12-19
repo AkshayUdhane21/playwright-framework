@@ -37,8 +37,9 @@ jobs:
       - name: Configure CMake (installs dependencies via manifest)
         shell: bash
         run: |
+          VCPKG_ROOT="${{ github.workspace }}/vcpkg"
           cmake -B build -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+            -DCMAKE_TOOLCHAIN_FILE="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
 
       - name: Download SonarCloud Build Wrapper
         run: |

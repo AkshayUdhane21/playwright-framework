@@ -45,8 +45,11 @@ jobs:
     - name: Configure CMake (installs vcpkg dependencies automatically via manifest)
       shell: bash
       run: |
+        VCPKG_ROOT="${{ github.workspace }}/vcpkg"
+        # Convert Windows path to Unix format if needed
+        VCPKG_ROOT=$(echo "$VCPKG_ROOT" | sed 's|\\|/|g')
         cmake -B build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} \
-          -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+          -DCMAKE_TOOLCHAIN_FILE="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
 
     - name: Build
       shell: bash
@@ -82,8 +85,11 @@ jobs:
     - name: Configure CMake (installs dependencies via manifest)
       shell: bash
       run: |
+        VCPKG_ROOT="${{ github.workspace }}/vcpkg"
+        # Convert Windows path to Unix format if needed
+        VCPKG_ROOT=$(echo "$VCPKG_ROOT" | sed 's|\\|/|g')
         cmake -B build -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+          -DCMAKE_TOOLCHAIN_FILE="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
 
     - name: Download SonarCloud Build Wrapper
       run: |
