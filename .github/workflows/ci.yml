@@ -47,15 +47,8 @@ jobs:
         fi
 
     - name: SonarQube Scan
-      if: ${{ secrets.SONAR_TOKEN != '' && secrets.SONAR_HOST_URL != '' }}
       uses: sonarsource/sonarqube-scan-action@master
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      continue-on-error: true  # Don't fail the workflow if SonarQube fails
-
-    - name: SonarQube Skip Notice
-      if: ${{ secrets.SONAR_TOKEN == '' || secrets.SONAR_HOST_URL == '' }}
-      run: |
-        echo "⚠️ SonarQube scan skipped: SONAR_TOKEN or SONAR_HOST_URL secrets not configured"
-        echo "To enable SonarQube analysis, add these secrets in Repository Settings → Secrets and variables → Actions"
+      continue-on-error: true  # Don't fail the workflow if SonarQube fails or secrets are missing
