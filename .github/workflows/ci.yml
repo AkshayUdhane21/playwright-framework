@@ -47,13 +47,25 @@ jobs:
         ${{ matrix.vcpkg-bootstrap }}
         echo "VCPKG_ROOT=$(pwd)/vcpkg" >> $GITHUB_ENV
 
-    - name: Configure CMake
+    - name: Configure CMake (Linux)
+      if: runner.os == 'Linux'
       shell: bash
       run: |
         cmake -B build \
           -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} \
           -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
           -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake \
+          -DCMAKE_CXX_COMPILER=g++ \
+          -G "${{ matrix.generator }}"
+
+    - name: Configure CMake (Windows)
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        cmake -B build ^
+          -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} ^
+          -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ^
+          -DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%/scripts/buildsystems/vcpkg.cmake ^
           -G "${{ matrix.generator }}"
 
     - name: Build
