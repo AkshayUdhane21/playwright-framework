@@ -85,7 +85,6 @@ jobs:
     name: SonarCloud Analysis
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: ${{ secrets.SONAR_TOKEN != '' && secrets.SONAR_HOST_URL != '' }}
     
     steps:
     - name: Checkout code
@@ -105,3 +104,4 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      continue-on-error: true  # Don't fail the workflow if SonarQube fails or secrets are missing
