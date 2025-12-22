@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.15)
 project(ats_yokogawa_conn_service)
 
+# Enable compile commands export for SonarQube/SonarCloud analysis
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(VCPKG_MANIFEST_FEATURES "" CACHE STRING "")
 # Organize build outputs by config type (Debug/Release/Test)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/bin)
