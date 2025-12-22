@@ -17,8 +17,16 @@ jobs:
       with:
         fetch-depth: 0  # Shallow clones should be disabled for better SonarQube analysis
 
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake ninja-build curl zip unzip tar pkg-config
+
     - name: Set up vcpkg
-      uses: microsoft/setup-vcpkg@v3
+      run: |
+        git clone https://github.com/Microsoft/vcpkg.git
+        ./vcpkg/bootstrap-vcpkg.sh
+        echo "VCPKG_ROOT=$(pwd)/vcpkg" >> $GITHUB_ENV
 
     - name: Configure CMake
       run: |
