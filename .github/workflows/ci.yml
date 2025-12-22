@@ -65,53 +65,20 @@ jobs:
       run: ctest --test-dir build --build-config ${{ matrix.build-type }} --output-on-failure
       continue-on-error: true  # Don't fail if tests fail
 
-    - name: Upload compile_commands.json (Linux)
+    - name: Copy compile_commands.json to root (Linux)
       if: runner.os == 'Linux'
-      uses: actions/upload-artifact@v4
-      with:
-        name: compile-commands-linux
-        path: build/compile_commands.json
-        if-no-files-found: ignore
-
-    - name: Upload compile_commands.json (Windows)
-      if: runner.os == 'Windows'
-      uses: actions/upload-artifact@v4
-      with:
-        name: compile-commands-windows
-        path: build/compile_commands.json
-        if-no-files-found: ignore
-
-  sonarcloud-analysis:
-    name: SonarCloud Analysis
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0  # Shallow clones should be disabled for better SonarQube analysis
-
-    - name: Download compile_commands.json
-      uses: actions/download-artifact@v4
-      with:
-        name: compile-commands-linux
-        path: .
-
-    - name: Verify compile_commands.json
       run: |
-        if [ -f compile-commands-linux/compile_commands.json ]; then
-          cp compile-commands-linux/compile_commands.json .
+        if [ -f build/compile_commands.json ]; then
+          cp build/compile_commands.json .
           echo "compile_commands.json copied to root"
           ls -la compile_commands.json
-        elif [ -f compile_commands.json ]; then
-          echo "compile_commands.json already in root"
         else
-          echo "Warning: compile_commands.json not found"
-          ls -la compile-commands-linux/ || echo "Artifact directory not found"
+          echo "Warning: compile_commands.json not found in build directory"
+          ls -la build/ || echo "Build directory not found"
         fi
 
-    - name: SonarCloud Scan
+    - name: SonarCloud Scan (Linux only)
+      if: runner.os == 'Linux'
       uses: sonarsource/sonarqube-scan-action@master
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
