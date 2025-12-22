@@ -77,8 +77,48 @@ jobs:
           ls -la build/ || echo "Build directory not found"
         fi
 
-    - name: SonarCloud Scan (Linux only)
+    - name: Upload compile_commands.json (Linux only)
       if: runner.os == 'Linux'
+      uses: actions/upload-artifact@v4
+      with:
+        name: compile-commands-linux
+        path: compile_commands.json
+        retention-days: 1
+
+  sonarcloud-analysis:
+    name: SonarCloud Analysis
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: always()  # Run even if build jobs fail
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Shallow clones should be disabled for better SonarQube analysis
+
+    - name: Download compile_commands.json
+      uses: actions/download-artifact@v4
+      with:
+        name: compile-commands-linux
+        path: .
+
+    - name: Verify and fix compile_commands.json paths
+      run: |
+        if [ -f compile-commands-linux/compile_commands.json ]; then
+          cp compile-commands-linux/compile_commands.json .
+          echo "compile_commands.json found and copied to root"
+          # Fix absolute paths to match current workspace
+          WORKSPACE=$(pwd)
+          sed -i "s|/home/runner/work/playwright-framework/playwright-framework|$WORKSPACE|g" compile_commands.json || true
+          echo "Paths updated in compile_commands.json"
+          head -5 compile_commands.json || echo "File exists but empty"
+        else
+          echo "Warning: compile_commands.json not found in artifact"
+          ls -la compile-commands-linux/ || echo "Artifact directory not found"
+        fi
+
+    - name: SonarCloud Scan
       uses: sonarsource/sonarqube-scan-action@master
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
