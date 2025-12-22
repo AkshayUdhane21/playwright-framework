@@ -97,7 +97,19 @@ jobs:
       with:
         name: compile-commands-linux
         path: .
-        if-no-files-found: ignore
+
+    - name: Verify compile_commands.json
+      run: |
+        if [ -f compile-commands-linux/compile_commands.json ]; then
+          cp compile-commands-linux/compile_commands.json .
+          echo "compile_commands.json copied to root"
+          ls -la compile_commands.json
+        elif [ -f compile_commands.json ]; then
+          echo "compile_commands.json already in root"
+        else
+          echo "Warning: compile_commands.json not found"
+          ls -la compile-commands-linux/ || echo "Artifact directory not found"
+        fi
 
     - name: SonarCloud Scan
       uses: sonarsource/sonarqube-scan-action@master
